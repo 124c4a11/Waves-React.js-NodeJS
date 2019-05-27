@@ -39,4 +39,39 @@ app.post('/api/users/register', async (req, res) => {
 });
 
 
+app.post('/api/users/login', async (req, res) => {
+  try {
+    const user = await User.findOne({ 'email': req.body.email });
+
+    if (!user) {
+      return res.status(404).json({
+        loginSuccess: false,
+        message: 'Auth faile, email not found!'
+      });
+    }
+
+    const isMatch = await user.comparePassword(req.body.password);
+
+    if (!isMatch) {
+      return res.status(400).json({
+        loginSuccess: false,
+        message: 'Wrong password!'
+      });
+    }
+
+    const token = await user.generateToken();
+
+    user.token = token;
+
+    await user.save();
+
+    res.status(200).cookie('w_auth', user.token).json({
+      loginSuccess: true
+    });
+  } catch (err) {
+    res.status(400).json(err);
+  }
+});
+
+
 app.listen(port, () => console.log(`Server Running at ${port}`));
