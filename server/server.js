@@ -23,8 +23,19 @@ const User = require('./models/user');
 
 
 // USERS
-app.post('/api/users/register', (req, res) => {
-  res.status(200);
+app.post('/api/users/register', async (req, res) => {
+  const user = new User(req.body);
+
+  try {
+    await user.save();
+
+    res.status(201).json({
+      success: true,
+      userdata: user
+    });
+  } catch (err) {
+    res.status(500).json({ success: false, err });
+  }
 });
 
 
