@@ -42,6 +42,20 @@ app.get('/api/users/auth', auth, async (req, res) => {
 });
 
 
+app.get('/api/users/logout', auth, async (req, res) => {
+  try {
+    await User.findOneAndUpdate(
+      { _id: req.user._id },
+      { token: '' }
+    );
+
+    res.status(200).send({ success: true });
+  } catch (err) {
+    res.status(500).json({ success: false, err });
+  }
+});
+
+
 app.post('/api/users/register', async (req, res) => {
   const user = new User(req.body);
 
