@@ -45,6 +45,29 @@ app.post('/api/product/article', auth, admin, async (req, res) => {
 });
 
 
+app.get('/api/product/articles_by_id', async (req, res) => {
+  let type = req.query.type;
+  let items = req.query.id;
+
+  if (type === "array") {
+    const ids = req.query.id.split(',');
+    items = [];
+    items = ids.map((item) => mongoose.Types.ObjectId(item));
+  }
+
+  try {
+    const products = await Product
+      .find({ '_id': { $in: items } })
+      .populate('brand')
+      .populate('wood');
+
+    res.status(200).send(products);
+  } catch (err) {
+    res.status(500).send(err);
+  }
+});
+
+
 // WOODS
 app.post('/api/product/wood', auth, admin, async (req, res) => {
   const wood = new Wood(req.body);
