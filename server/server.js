@@ -5,6 +5,7 @@ const mongoose = require('mongoose');
 
 const User = require('./models/user');
 const Brand = require('./models/brand');
+const Wood = require('./models/wood');
 
 const auth = require('./middleware/auth');
 const admin = require('./middleware/admin');
@@ -27,6 +28,31 @@ mongoose.connect(process.env.DATABASE, {
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
 app.use(cookieParser());
+
+
+// WOODS
+app.post('/api/product/wood', auth, admin, async (req, res) => {
+  const wood = new Wood(req.body);
+
+  try {
+    await wood.save();
+
+    res.status(200).json({ success: true, wood });
+  } catch (err) {
+    res.status(500).json({ success: false, err });
+  }
+});
+
+
+app.get('/api/product/woods', async (req, res) => {
+  try {
+    const woods = await Wood.find({});
+
+    res.status(200).send(woods);
+  } catch (err) {
+    res.status(400).send(err);
+  }
+});
 
 
 // BRAND
