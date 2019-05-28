@@ -1,0 +1,28 @@
+* {
+  box-sizing: border-box;
+
+  &::before,
+  &::after { box-sizing: inherit; }
+}
+
+body {
+  margin:0;
+  padding:0;
+  font: 16px 'Oswald', sans-serif;
+  color: #404040;
+}
+
+.d-flex { display: flex; }
+
+.container {
+  width:1100px;
+  margin: 0 auto;
+}
+
+.logo {
+  display: inline-block;
+  font-family: 'Monoton', cursive;
+  color: #fff;
+  font-size: 40px;
+  text-decoration: none;
+}
