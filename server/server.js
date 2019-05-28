@@ -6,6 +6,7 @@ const mongoose = require('mongoose');
 const User = require('./models/user');
 const Brand = require('./models/brand');
 const Wood = require('./models/wood');
+const Product = require('./models/product');
 
 const auth = require('./middleware/auth');
 const admin = require('./middleware/admin');
@@ -28,6 +29,20 @@ mongoose.connect(process.env.DATABASE, {
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
 app.use(cookieParser());
+
+
+// PRODUCTS
+app.post('/api/product/article', auth, admin, async (req, res) => {
+  const product = new Product(req.body);
+
+  try {
+    await product.save();
+
+    res.status(200).json({ success: true, product });
+  } catch (err) {
+    res.status(500).json({ success: false, err });
+  }
+});
 
 
 // WOODS
