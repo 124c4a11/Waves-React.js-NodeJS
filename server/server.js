@@ -4,8 +4,10 @@ const cookieParser = require('cookie-parser');
 const mongoose = require('mongoose');
 
 const User = require('./models/user');
+const Brand = require('./models/brand');
 
 const auth = require('./middleware/auth');
+const admin = require('./middleware/admin');
 
 
 require('dotenv').config();
@@ -25,6 +27,31 @@ mongoose.connect(process.env.DATABASE, {
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
 app.use(cookieParser());
+
+
+// BRAND
+app.get('/api/product/brands', async (req, res) => {
+  try {
+    const brands = await Brand.find({});
+
+    res.status(200).send(brands);
+  } catch (err) {
+    res.status(400).send(err);
+  }
+});
+
+
+app.post('/api/product/brand', auth, admin, async (req, res) => {
+  const brand = new Brand(req.body);
+
+  try {
+    await brand.save();
+
+    res.status(200).json({ success: true, brand });
+  } catch (err) {
+    res.status(500).json({ success: false, err });
+  }
+});
 
 
 // USERS
