@@ -2,14 +2,16 @@ $bg-color: #e1ddc3;
 
 .btn {
   display: inline-block;
-  padding: 10px;
+  padding: .6em;
   border: none;
   font-family: inherit;
   font-size: 1rem;
   color: #000;
   text-decoration: none;
+  text-transform: uppercase;
   background-color: $bg-color;
   transition: background-color .25s;
+  cursor: pointer;
 
   &:hover,
   &:focus {

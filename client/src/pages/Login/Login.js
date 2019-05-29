@@ -1,6 +1,7 @@
 import React from 'react';
 
 import Button from '../../components/Button';
+import LoginForm from '../../components/LoginForm'
 
 
 export default () => {
@@ -23,7 +24,8 @@ export default () => {
         <div className="modal__col">
           <h2 className="modal__title">Registered Customers</h2>
           <p>If you have an account please log in.</p>
-          LOGIN
+
+          <LoginForm />
         </div>
       </div>
     </div>

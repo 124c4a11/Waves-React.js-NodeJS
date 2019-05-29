@@ -24,8 +24,6 @@ export default (props) => {
         >{ props.title }</button>;
     }
 
-    console.log('Button template', template);
-
     return template;
   };
 
