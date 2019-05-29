@@ -2,7 +2,8 @@ import React from 'react';
 import { Switch, Route } from 'react-router-dom';
 
 import Layout from './hoc/Layout';
-import Home from './components/Home';
+import Home from './pages/Home';
+import Login from './pages/Login';
 
 import { library } from '@fortawesome/fontawesome-svg-core';
 import {
@@ -26,6 +27,7 @@ export default () => {
     <Switch>
       <Layout>
         <Route path="/" exact component={ Home } />
+        <Route path="/login" exact component={ Login } />
       </Layout>
     </Switch>
   );

@@ -1,0 +1,19 @@
+$bg-color: #e1ddc3;
+
+.btn {
+  display: inline-block;
+  padding: 10px;
+  border: none;
+  font-family: inherit;
+  font-size: 1rem;
+  color: #000;
+  text-decoration: none;
+  background-color: $bg-color;
+  transition: background-color .25s;
+
+  &:hover,
+  &:focus {
+    outline: none;
+    background-color: darken($bg-color, 10%);
+  }
+}

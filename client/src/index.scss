@@ -19,10 +19,47 @@ body {
   margin: 0 auto;
 }
 
+.container_vertical-centerer {
+  display: flex;
+  align-items: center;
+  flex-grow: 1;
+  padding: 80px 0;
+}
+
+/*================================================================
+  logo
+================================================================*/
+
 .logo {
   display: inline-block;
   font-family: 'Monoton', cursive;
   color: #fff;
   font-size: 40px;
   text-decoration: none;
+}
+
+/*================================================================
+  modal
+================================================================*/
+
+.modal {
+  padding: 30px;
+  border: 1px solid #999592;
+  border-top: 5px solid #999592;
+}
+
+.modal_flex { display: flex; }
+
+.modal__col {
+  flex: 1;
+
+  & + & { margin-left: 30px; }
+}
+
+.modal__title {
+  margin-top: 0;
+  margin-bottom: .8em;
+  font-size: 1.5em;
+  color: #686868;
+  text-transform: uppercase;
 }
