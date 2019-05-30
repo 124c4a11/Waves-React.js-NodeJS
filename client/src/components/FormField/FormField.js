@@ -29,7 +29,7 @@ export default ({ id, formdata, change }) => {
               { ...formdata.config }
               value={ formdata.value }
               onBlur={ (event) => change({ event, id, blur: true }) }
-              onChange={ (event) => change({ event, id, blur: true }) }
+              onChange={ (event) => change({ event, id }) }
               className="form-field"
             />
 

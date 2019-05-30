@@ -1,8 +1,10 @@
-import React, { Component } from 'react';
+import React, { Component, Fragment } from 'react';
 import { withRouter } from 'react-router-dom';
 import { connect } from 'react-redux';
 
-import { loginUser } from '../../actions/userActions';
+import { Dialog } from '@material-ui/core';
+
+import { registerUser } from '../../actions/userActions';
 
 import {
   update,
@@ -17,7 +19,7 @@ import Button from '../Button';
 class RegisterForm extends Component {
   state = {
     formError: false,
-    formSuccess: '',
+    formSuccess: false,
     formdata: {
       name: {
         element: 'input',
@@ -93,7 +95,8 @@ class RegisterForm extends Component {
           placeholder: 'Confirm your password'
         },
         validation: {
-          required: true
+          required: true,
+          confirm: 'password'
         },
         valid: false,
         touched: false,
@@ -118,7 +121,21 @@ class RegisterForm extends Component {
     let formIsValid = isFormValid(this.state.formdata, 'register');
 
     if (formIsValid) {
-      console.log(dataToSubmit);
+      await this.props.dispatch(registerUser(dataToSubmit));
+
+      if (this.props.user.isRegister) {
+        this.setState({
+          formError: false,
+          formSuccess: true
+        });
+
+        setTimeout(() => {
+          this.props.history.push('/login');
+
+        }, 3000);
+      } else {
+        this.setState({ formError: true });
+      }
     } else {
       this.setState({ formError: true });
     }
@@ -126,66 +143,75 @@ class RegisterForm extends Component {
 
   render() {
     return (
-      <form onSubmit={ (e) => this.onSubmit(e) }>
-        <h2 className="modal__title mt-0">Personal information</h2>
+      <Fragment>
+        <form onSubmit={ (e) => this.onSubmit(e) }>
+          <h2 className="modal__title mt-0">Personal information</h2>
 
-        <div className="form-group form-row">
-          <div className="form-col">
-            <FormField
-              id={ 'name' }
-              formdata={ this.state.formdata.name }
-              change={ (element) => this.onUpdateForm(element) }
-            />
-          </div>
-          <div className="form-col">
-            <FormField
-              id={ 'lastname' }
-              formdata={ this.state.formdata.lastname }
-              change={ (element) => this.onUpdateForm(element) }
-            />
-          </div>
-        </div>
-
-        <div className="form-group">
-          <FormField
-            id={ 'email' }
-            formdata={ this.state.formdata.email }
-            change={ (element) => this.onUpdateForm(element) }
-          />
-        </div>
-
-        <h2 className="modal__title mt-0">Verify password</h2>
-
-        <div className="form-group form-row">
-          <div className="form-col">
-            <FormField
-              id={ 'password' }
-              formdata={ this.state.formdata.password }
-              change={ (element) => this.onUpdateForm(element) }
-            />
-          </div>
-          <div className="form-col">
-            <FormField
-              id={ 'confirmPassword' }
-              formdata={ this.state.formdata.confirmPassword }
-              change={ (element) => this.onUpdateForm(element) }
-            />
-          </div>
-        </div>
-
-        { this.state.formError ?
-          <div className="form-group">
-            <div className="form-error-label">
-              Please check your data
+          <div className="form-group form-row">
+            <div className="form-col">
+              <FormField
+                id={ 'name' }
+                formdata={ this.state.formdata.name }
+                change={ (element) => this.onUpdateForm(element) }
+              />
+            </div>
+            <div className="form-col">
+              <FormField
+                id={ 'lastname' }
+                formdata={ this.state.formdata.lastname }
+                change={ (element) => this.onUpdateForm(element) }
+              />
             </div>
           </div>
-        :null }
 
-        <Button
-          type="subbmit"
-          title="Create an account"
-        />
-      </form>
+          <div className="form-group">
+            <FormField
+              id={ 'email' }
+              formdata={ this.state.formdata.email }
+              change={ (element) => this.onUpdateForm(element) }
+            />
+          </div>
+
+          <h2 className="modal__title mt-0">Verify password</h2>
+
+          <div className="form-group form-row">
+            <div className="form-col">
+              <FormField
+                id={ 'password' }
+                formdata={ this.state.formdata.password }
+                change={ (element) => this.onUpdateForm(element) }
+              />
+            </div>
+            <div className="form-col">
+              <FormField
+                id={ 'confirmPassword' }
+                formdata={ this.state.formdata.confirmPassword }
+                change={ (element) => this.onUpdateForm(element) }
+              />
+            </div>
+          </div>
+
+          { this.state.formError ?
+            <div className="form-group">
+              <div className="form-error-label">
+                Please check your data
+              </div>
+            </div>
+          :null }
+
+          <Button
+            type="subbmit"
+            title="Create an account"
+          />
+        </form>
+
+        <Dialog open={ this.state.formSuccess }>
+          <div className="dialog-alert">
+            <div className="dialog-alert__title">Congratulations!!!</div>
+            <p>You will be redirected to LOGIN in a couple seconds...</p>
+          </div>
+        </Dialog>
+      </Fragment>
     );
   };
 }
