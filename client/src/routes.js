@@ -4,6 +4,7 @@ import { Switch, Route } from 'react-router-dom';
 import Layout from './hoc/Layout';
 import Home from './pages/Home';
 import Login from './pages/Login';
+import Register from './pages/Register';
 
 import { library } from '@fortawesome/fontawesome-svg-core';
 import {
@@ -28,6 +29,7 @@ export default () => {
       <Layout>
         <Route path="/" exact component={ Home } />
         <Route path="/login" exact component={ Login } />
+        <Route path="/register" exact component={ Register } />
       </Layout>
     </Switch>
   );

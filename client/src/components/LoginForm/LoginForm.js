@@ -35,6 +35,7 @@ class LoginForm extends Component {
         touched: false,
         validationMessage: ''
       },
+
       password: {
         element: 'input',
         value: '',
