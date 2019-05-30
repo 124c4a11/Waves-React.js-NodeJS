@@ -1,5 +1,8 @@
 import React, { Component } from 'react';
+import { withRouter } from 'react-router-dom';
 import { connect } from 'react-redux';
+
+import { loginUser } from '../../actions/userActions';
 
 import {
   update,
@@ -8,6 +11,7 @@ import {
 } from '../../utils/formActions';
 
 import FormField from '../FormField';
+import Button from '../Button';
 
 
 class LoginForm extends Component {
@@ -58,14 +62,20 @@ class LoginForm extends Component {
     })
   };
 
-  onSubmit = (e) => {
+  onSubmit = async (e) => {
     e.preventDefault();
 
     let dataToSubmit = generateData(this.state.formdata, 'login');
     let formIsValid = isFormValid(this.state.formdata, 'login');
 
     if (formIsValid) {
-      console.log(dataToSubmit);
+      await this.props.dispatch(loginUser(dataToSubmit));
+
+      if (this.props.user.loginSuccess) {
+        this.props.history.push('/user/dashboard');
+      } else {
+        this.setState({ formError: true });
+      }
     } else {
       this.setState({ formError: true });
     }
@@ -98,14 +108,16 @@ class LoginForm extends Component {
           </div>
         :null }
 
-        <button
-          onClick={ (e) => this.onSubmit(e) }
-          className="btn"
-        >Log in</button>
+        <Button
+          type="submit"
+          title="Log in"
+        />
       </form>
-    )
+    );
   };
 }
 
 
-export default connect()(LoginForm);
+export default connect(({ user }) => ({
+  user
+}))(withRouter(LoginForm));

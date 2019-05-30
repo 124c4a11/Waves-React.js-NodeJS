@@ -15,6 +15,16 @@ export default (props) => {
           to={ props.linkTo }
           { ...props.addStyles }
         >{ props.title }</Link>
+
+        break;
+
+      case 'submit':
+        template = <button
+          type={ props.type }
+          className="btn"
+          { ...props.addStyles }
+        >{ props.title }</button>;
+
         break;
 
       default:
