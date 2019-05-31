@@ -5,6 +5,7 @@ import Layout from './hoc/Layout';
 import Home from './pages/Home';
 import Login from './pages/Login';
 import Register from './pages/Register';
+import UserDashboard from './pages/UserDashboard';
 
 import { library } from '@fortawesome/fontawesome-svg-core';
 import {
@@ -30,6 +31,7 @@ export default () => {
         <Route path="/" exact component={ Home } />
         <Route path="/login" exact component={ Login } />
         <Route path="/register" exact component={ Register } />
+        <Route path="/user/dashboard" exact component={ UserDashboard } />
       </Layout>
     </Switch>
   );

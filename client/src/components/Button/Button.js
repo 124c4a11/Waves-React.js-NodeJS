@@ -8,11 +8,15 @@ export default (props) => {
   const buttons = () => {
     let template = '';
 
+    const classname = props.className
+      ? `btn ${props.className}`
+      : `btn`;
+
     switch (props.type) {
       case 'link':
         template = <Link
-          className="btn"
-          to={ props.linkTo }
+          className={ classname }
+          to={ props.linkTo || '' }
           { ...props.addStyles }
         >{ props.title }</Link>
 
@@ -21,7 +25,7 @@ export default (props) => {
       case 'submit':
         template = <button
           type={ props.type }
-          className="btn"
+          className={ classname }
           { ...props.addStyles }
         >{ props.title }</button>;
 
@@ -29,7 +33,7 @@ export default (props) => {
 
       default:
         template = <button
-          className="btn"
+          className={ classname }
           { ...props.addStyles }
         >{ props.title }</button>;
     }
