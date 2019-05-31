@@ -25,7 +25,7 @@
 
 .header__nav-top,
 .header__nav-bottom {
-  padding: 10px 20px;
+  padding: 10px .5rem;
 }
 
 .header__nav-top {
@@ -33,4 +33,50 @@
   border-bottom: 1px solid #fff;
 }
 
-.header__nav-bottom { color: #fff; }
+.header__nav-bottom { color: rgba(255, 255, 255, .8); }
+
+.header__nav-list {
+  display: flex;
+  justify-content: flex-end;
+  padding: 0;
+  margin: 0;
+  list-style: none;
+}
+
+.header__nav-list-item { margin: 0 .5rem; }
+
+.header__nav-list-link {
+  display: block;
+  transition: color .25s;
+
+  &:hover,
+  &:focus {
+    outline: none;
+    color: #fff;
+  }
+}
+
+.btn.header__nav-list-link {
+  padding: 0;
+  color: inherit;
+  font-weight: inherit;
+  font-size: inherit;
+  background-color: transparent;
+
+  &:hover,
+  &:focus {
+    @extend .header__nav-list-link:hover;
+  }
+}
+
+.header__nav-list-badge {
+  display: inline-block;
+  border-radius: 1em;
+  min-width: 1.41em;
+  padding: 0 .4em;
+  margin-right: .5em;
+  font-size: 12px;
+  color: #fff;
+  text-align: center;
+  background-color: red;
+}
