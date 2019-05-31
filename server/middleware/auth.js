@@ -16,7 +16,6 @@ module.exports = async (req, res, next) => {
 
     next();
   } catch (err) {
-    throw err;
     return res.json({ isAuth: false, error: true });
   }
 };
