@@ -2,6 +2,8 @@ import React from 'react';
 import { Switch, Route } from 'react-router-dom';
 
 import Layout from './hoc/Layout';
+import Auth from './hoc/Auth';
+
 import Home from './pages/Home';
 import Login from './pages/Login';
 import Register from './pages/Register';
@@ -28,10 +30,10 @@ export default () => {
   return (
     <Switch>
       <Layout>
-        <Route path="/" exact component={ Home } />
-        <Route path="/login" exact component={ Login } />
-        <Route path="/register" exact component={ Register } />
-        <Route path="/user/dashboard" exact component={ UserDashboard } />
+        <Route path="/" exact component={ Auth(Home, null) } />
+        <Route path="/login" exact component={ Auth(Login, false) } />
+        <Route path="/register" exact component={ Auth(Register, false) } />
+        <Route path="/user/dashboard" exact component={ Auth(UserDashboard, true) } />
       </Layout>
     </Switch>
   );

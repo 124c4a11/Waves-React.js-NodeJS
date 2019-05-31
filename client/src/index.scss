@@ -171,3 +171,14 @@ layout-content
   margin-top: 0;
   text-transform: uppercase;
 }
+
+/*================================================================
+  preloader
+================================================================*/
+
+.preloader {
+  flex: 1;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}

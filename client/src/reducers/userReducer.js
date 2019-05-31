@@ -1,6 +1,7 @@
 import {
   REGISTER_USER,
-  LOGIN_USER
+  LOGIN_USER,
+  AUTH_USER
 } from '../constants';
 
 
@@ -16,6 +17,12 @@ export default (state = {}, action) => {
       return {
         ...state,
         loginSuccess: action.payload.loginSuccess
+      };
+
+    case AUTH_USER:
+      return {
+        ...state,
+        userData: action.payload
       };
 
     default:
