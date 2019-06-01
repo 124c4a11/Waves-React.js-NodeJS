@@ -1,8 +1,8 @@
 import React, { Component } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, withRouter } from 'react-router-dom';
 import { connect } from 'react-redux';
 
-import Button from '../Button';
+import { logout } from '../../actions/userActions';
 
 import './Header.scss';
 
@@ -75,11 +75,10 @@ class Header extends Component {
               className="header__nav-list-item"
               key={ link.name }
             >
-              <Button
-                title={ link.name }
-                onClick={ (e) => this.onLogout(e) }
+              <button
+                onClick={ this.onLogout }
                 className="header__nav-list-link"
-              />
+              >{ link.name }</button>
             </li>
           );
 
@@ -119,7 +118,17 @@ class Header extends Component {
         { this.generateMenuItems(listLinks) }
       </ul>
     );
-  }
+  };
+
+  onLogout = async () => {
+    await this.props.dispatch(logout());
+
+    if (this.props.user.success) {
+      this.props.history.push('/');
+    }
+  };
+
+  loger = () => console.log('Click');
 
   render() {
     return (
@@ -145,4 +154,4 @@ class Header extends Component {
 
 export default connect(({ user }) => ({
   user
-}))(Header);
+}))(withRouter(Header));

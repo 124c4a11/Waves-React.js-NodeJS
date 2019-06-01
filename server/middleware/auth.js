@@ -8,7 +8,7 @@ module.exports = async (req, res, next) => {
     const user = await User.findByToken(token);
 
     if (!user) {
-      return res.status(404).json({ isAuth: false, error: true });
+      return res.json({ isAuth: false, error: true });
     }
 
     req.token = token;

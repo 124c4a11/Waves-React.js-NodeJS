@@ -47,25 +47,21 @@
 
 .header__nav-list-link {
   display: block;
+  padding: 0;
+  border: 0 none;
+  font-family: inherit;
+  font-weight: inherit;
+  font-size: inherit;
+  color: inherit;
+  text-transform: uppercase;
+  background-color: transparent;
   transition: color .25s;
+  cursor: pointer;
 
   &:hover,
   &:focus {
     outline: none;
     color: #fff;
-  }
-}
-
-.btn.header__nav-list-link {
-  padding: 0;
-  color: inherit;
-  font-weight: inherit;
-  font-size: inherit;
-  background-color: transparent;
-
-  &:hover,
-  &:focus {
-    @extend .header__nav-list-link:hover;
   }
 }
 

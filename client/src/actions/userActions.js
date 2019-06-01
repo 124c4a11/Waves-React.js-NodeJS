@@ -4,7 +4,8 @@ import {
   USER_SERVER,
   REGISTER_USER,
   LOGIN_USER,
-  AUTH_USER
+  AUTH_USER,
+  LOGOUT_USER
 } from '../constants';
 
 
@@ -46,6 +47,20 @@ export const auth = () => async (dispatch) => {
 
     dispatch({
       type: AUTH_USER,
+      payload: res.data
+    });
+  } catch (err) {
+    throw err;
+  }
+};
+
+
+export const logout = () => async (dispatch) => {
+  try {
+    const res = await axios.get(`${USER_SERVER}/logout`);
+
+    dispatch({
+      type: LOGOUT_USER,
       payload: res.data
     });
   } catch (err) {
