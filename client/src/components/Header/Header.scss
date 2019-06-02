@@ -37,13 +37,17 @@
 
 .header__nav-list {
   display: flex;
+  flex-wrap: wrap;
   justify-content: flex-end;
   padding: 0;
   margin: 0;
   list-style: none;
 }
 
-.header__nav-list-item { margin: 0 .5rem; }
+.header__nav-list-item {
+  flex: 0 0 auto;
+  margin: 0 .5rem;
+}
 
 .header__nav-list-link {
   display: block;
