@@ -165,7 +165,7 @@ app.get('/api/users/logout', auth, async (req, res) => {
 
     res.status(200).send({ success: true });
   } catch (err) {
-    res.status(500).json({ success: false, err });
+    res.json({ success: false, err });
   }
 });
 

@@ -29,7 +29,7 @@ export default (state = {}, action) => {
     case LOGOUT_USER:
       return {
         ...state,
-        success: action.payload
+        success: action.payload.success
       };
 
     default:

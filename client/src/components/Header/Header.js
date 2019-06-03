@@ -1,8 +1,6 @@
 import React, { Component } from 'react';
-import { Link, withRouter } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 import { connect } from 'react-redux';
-
-import { logout } from '../../actions/userActions';
 
 import './Header.scss';
 
@@ -40,7 +38,7 @@ class Header extends Component {
       },
       {
         name: 'Log out',
-        linkTo: '/user/logout',
+        linkTo: '/logout',
         public: false
       }
     ]
@@ -66,19 +64,6 @@ class Header extends Component {
                 </span>
                 { link.name }
               </Link>
-            </li>
-          );
-
-        case 'Log out':
-          return (
-            <li
-              className="header__nav-list-item"
-              key={ link.name }
-            >
-              <button
-                onClick={ this.onLogout }
-                className="header__nav-list-link"
-              >{ link.name }</button>
             </li>
           );
 
@@ -120,14 +105,6 @@ class Header extends Component {
     );
   };
 
-  onLogout = async () => {
-    await this.props.dispatch(logout());
-
-    if (this.props.user.success) {
-      this.props.history.push('/');
-    }
-  };
-
   render() {
     return (
       <header className="header">
@@ -152,4 +129,4 @@ class Header extends Component {
 
 export default connect(({ user }) => ({
   user
-}))(withRouter(Header));
+}))(Header);
