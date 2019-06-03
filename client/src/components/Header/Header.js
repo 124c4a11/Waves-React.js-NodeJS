@@ -128,14 +128,12 @@ class Header extends Component {
     }
   };
 
-  loger = () => console.log('Click');
-
   render() {
     return (
       <header className="header">
         <div className="container d-flex">
           <div className="header__logo">
-            <a href="/" className="logo">WAVES</a>
+            <Link to="/" className="logo">WAVES</Link>
           </div>
           <nav className="header__nav">
             <div className="header__nav-top">
@@ -148,7 +146,7 @@ class Header extends Component {
         </div>
       </header>
     );
-  }
+  };
 };
 
 

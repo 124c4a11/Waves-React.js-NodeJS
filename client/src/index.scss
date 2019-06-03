@@ -143,14 +143,15 @@ layout-content
     @media (max-width: em(768px)) { display: none !important; }
 
     li {
+      margin: .2rem .4rem;
+
       button {
         overflow: hidden;
         position: relative;
         width: 2rem;
         height: 2rem;
         padding: 0;
-        margin: .2rem .6rem;
-        border-color: transparent;
+        border: none;
         background-color: transparent;
         text-indent: -999px;
         cursor: pointer;

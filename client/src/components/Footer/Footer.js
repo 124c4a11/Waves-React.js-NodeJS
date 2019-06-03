@@ -9,7 +9,7 @@ export default () => {
     <footer className="footer">
       <div className="container">
         <div className="footer__top-line">
-          <a href="/" className="logo">WAVES</a>
+          <span className="logo">WAVES</span>
         </div>
         <div className="footer__bottom-line">
           <div className="footer__col">
