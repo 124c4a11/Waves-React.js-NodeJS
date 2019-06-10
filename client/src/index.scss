@@ -211,7 +211,7 @@ layout-content
 .main-carousel__item-title,
 .main-carousel__item-subtitle {
   display: table;
-  padding: 0 0.4em;
+  padding: 0 .4em;
   margin-bottom: 15px;
   color: #fff;
   text-transform: uppercase;
@@ -312,4 +312,41 @@ layout-content
   display: flex;
   justify-content: center;
   align-items: center;
+}
+
+/*================================================================
+  promotion-section
+================================================================*/
+
+.promotion-section {
+  padding: rem(80px);
+  text-align: center;
+  background-position: top center;
+  background-size: cover;
+  background-repeat: no-repeat;
+}
+
+.promotion-section__title,
+.promotion-section__subtitle {
+  display: table;
+  padding: 0 .4em;
+  margin: 15px auto;
+  color: #fff;
+  text-transform: uppercase;
+  text-shadow: 0 0 .1em rgba(0, 0, 0, .5);
+  background-color: rgba(130, 130, 130, .6);
+}
+
+.promotion-section__title {
+  font-size: em(70px);
+  font-weight: 700;
+}
+
+.promotion-section__subtitle {
+  font-size: em(50px);
+  font-weight: 300;
+}
+
+.promotion-section__btn {
+  box-shadow: 0 0 .3em rgba(0, 0, 0, .1);
 }

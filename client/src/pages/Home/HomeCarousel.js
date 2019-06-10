@@ -52,6 +52,7 @@ export default (props) => {
                   </div>
 
                   <Button
+                    type="link"
                     title={ slide.linkTitle }
                     linkTo={ slide.linkTo }
                     className="main-carousel__item-btn"
