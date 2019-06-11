@@ -1,8 +1,6 @@
 import React, { Fragment } from 'react';
 import { Link } from 'react-router-dom';
 
-import './Button.scss';
-
 
 export default (props) => {
   const buttons = () => {

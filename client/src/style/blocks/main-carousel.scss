@@ -1,0 +1,112 @@
+.main-carousel {
+  position: relative;
+  margin-top: -85px;
+
+  .slick-dots {
+    position: absolute;
+    bottom: 20px;
+    left: 50%;
+    transform: translateX(-50%);
+    display: flex !important;
+    flex-wrap: wrap;
+    flex: 0 0 auto;
+    padding: 0;
+    margin: 0;
+    list-style: none;
+
+    @media (max-width: em(768px)) { display: none !important; }
+
+    li {
+      margin: .2rem .4rem;
+
+      button {
+        overflow: hidden;
+        position: relative;
+        width: 2rem;
+        height: 2rem;
+        padding: 0;
+        border: none;
+        background-color: transparent;
+        text-indent: -999px;
+        cursor: pointer;
+
+        &::before {
+          content: '';
+          position: absolute;
+          top: 50%;
+          left: 50%;
+          transform: translate(-50%, -50%);
+          width: .9rem;
+          height: .9rem;
+          border-radius: 50%;
+          background-color: rgba(255, 255, 255, .6);
+          box-shadow: 0 0 2px rgba(0, 0, 0, .5);
+          transition: background-color .25s;
+        }
+
+        &:hover,
+        &:focus {
+          outline: none;
+          background-color: transparent;
+
+          &::before { background-color: #fff; }
+        }
+      }
+
+      &.slick-active {
+        button {
+          &:before { background-color: #fff; }
+        }
+      }
+    }
+  }
+}
+
+.main-carousel__item {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  padding: 166px 15px 80px;
+  background-position: center;
+  background-size: cover;
+  background-repeat: no-repeat;
+}
+
+.main-carousel__item-container {
+  max-width: 1785px;
+}
+
+.main-carousel__item-content {
+  padding: 0 5%;
+
+  @media (max-width: em(1200px)) { padding: 0; }
+}
+
+.main-carousel__item-title,
+.main-carousel__item-subtitle {
+  display: table;
+  padding: 0 .4em;
+  margin-bottom: 15px;
+  color: #fff;
+  text-transform: uppercase;
+  text-shadow: 0 0 .1em rgba(0, 0, 0, .5);
+  background-color: rgba(130, 130, 130, .6);
+}
+
+.main-carousel__item-title {
+  font-size: 4.37em;
+  font-weight: 700;
+
+  @media (max-width: em(768px)) { font-size: 9vw; }
+}
+
+.main-carousel__item-subtitle {
+  font-weight: 300;
+  font-size: 3.125em;
+
+  @media (max-width: em(768px)) { font-size: 6.5vw; }
+}
+
+.main-carousel__item-btn {
+  box-shadow: 0 0 .3em rgba(0, 0, 0, .1)
+}

@@ -1,7 +1,5 @@
 import React, { Fragment } from 'react';
 
-import './FormField.scss';
-
 
 export default ({ id, formdata, change }) => {
   const showError = () => {
