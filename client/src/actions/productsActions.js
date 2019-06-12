@@ -3,7 +3,9 @@ import axios from 'axios';
 import {
   PRODUCT_SERVER,
   GET_PRODUCTS_BY_SELL,
-  GET_PRODUCTS_BY_ARRIVAL
+  GET_PRODUCTS_BY_ARRIVAL,
+  GET_BRANDS,
+  GET_WOODS
 } from '../constants';
 
 
@@ -29,6 +31,34 @@ export const getProductsByArrival = () => async (dispatch) => {
 
     dispatch({
       type: GET_PRODUCTS_BY_ARRIVAL,
+      payload: res.data
+    });
+  } catch (err) {
+    throw err;
+  }
+};
+
+
+export const getBrands = () => async (dispatch) => {
+  try {
+    const res = await axios.get(`${PRODUCT_SERVER}/brands`);
+
+    dispatch({
+      type: GET_BRANDS,
+      payload: res.data
+    });
+  } catch (err) {
+    throw err;
+  }
+};
+
+
+export const getWoods = () => async (dispatch) => {
+  try {
+    const res = await axios.get(`${PRODUCT_SERVER}/woods`);
+
+    dispatch({
+      type: GET_WOODS,
       payload: res.data
     });
   } catch (err) {

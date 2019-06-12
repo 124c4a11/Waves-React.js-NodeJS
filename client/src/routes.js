@@ -9,6 +9,7 @@ import Login from './pages/Login';
 import Register from './pages/Register';
 import UserDashboard from './pages/UserDashboard';
 import Logout from './pages/Logout';
+import Shop from './pages/Shop';
 
 import { library } from '@fortawesome/fontawesome-svg-core';
 import {
@@ -38,6 +39,8 @@ export default () => {
         <Route path="/register" exact component={ Auth(Register, false) } />
 
         <Route path="/logout" exact component={ Auth(Logout, true) } />
+
+        <Route path="/shop" exact component={ Auth(Shop, null) } />
 
         <Route path="/user/dashboard" exact component={ Auth(UserDashboard, true) } />
       </Layout>
