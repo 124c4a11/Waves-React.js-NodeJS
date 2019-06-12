@@ -1,6 +1,9 @@
 import React, { Fragment } from 'react';
 import { Link } from 'react-router-dom';
 
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import { faShoppingBag } from '@fortawesome/free-solid-svg-icons'
+
 
 export default (props) => {
   const buttons = () => {
@@ -26,6 +29,14 @@ export default (props) => {
           className={ classname }
           { ...props.addStyles }
         >{ props.title }</button>;
+
+        break;
+
+      case 'bag-link':
+        template = <button
+          onClick={ () => props.runAction() }
+          className={ classname }
+        ><FontAwesomeIcon icon={ faShoppingBag } /></button>
 
         break;
 
