@@ -1,0 +1,7 @@
+.collapse-small-text {
+  font-size: rem(14px) !important;
+
+  span {
+    @extend .collapse-small-text;
+  }
+}

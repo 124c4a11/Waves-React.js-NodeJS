@@ -9,14 +9,16 @@ import {
 import List from '@material-ui/core/List';
 import ListItem from '@material-ui/core/ListItem';
 import ListItemText from '@material-ui/core/ListItemText';
-import Checkbox from '@material-ui/core/Checkbox';
+import Radio from '@material-ui/core/Radio';
+import RadioGroup from '@material-ui/core/RadioGroup';
+import FormControlLabel from '@material-ui/core/FormControlLabel';
 import Collapse from '@material-ui/core/Collapse';
 
 
-class CollapseCheckbox extends Component {
+export default class CollapseRadio extends Component {
   state = {
     open: false,
-    checked: []
+    value: '0'
   };
 
   componentDidMount() {
@@ -28,26 +30,14 @@ class CollapseCheckbox extends Component {
   renderList = () => {
     return this.props.list ?
       this.props.list.map((value) => (
-        <ListItem
+        <FormControlLabel
           key={ value._id }
-          role={ undefined }
-          button
-          onClick={ this.onToggle(value._id) }
-          style={{ padding: '0 15px 0 0' }}
-        >
-          <ListItemText
-            id={ value._id }
-            primary={ value.name }
-            className="collapse-small-text"
-          />
-          <Checkbox
-            checked={ this.state.checked.indexOf(value._id) !== -1 }
-            tabIndex={ -1 }
-            disableRipple
-            inputProps={{ 'aria-labelledby': value._id }}
-            color="primary"
-          />
-        </ListItem>
+          value={ `${value._id}` }
+          label={ value.name }
+          control={ <Radio /> }
+          style={{ marginRight: 0, paddingRight: '30px' }}
+          classes={{ label: 'collapse-small-text' }}
+        />
       ))
     : null;
   };
@@ -56,21 +46,10 @@ class CollapseCheckbox extends Component {
     this.setState({ open: !this.state.open });
   };
 
-  onToggle = (value) => () => {
-    const { checked } = this.state;
-    const currentNdx = checked.indexOf(value);
-    const newChecked = [...checked];
-
-    if (currentNdx === -1) {
-      newChecked.push(value);
-    } else {
-      newChecked.splice(currentNdx, 1)
-    }
-
-    this.setState(
-      { checked: newChecked },
-      () => this.props.handleFilters(newChecked)
-    );
+  handleChange = (e) => {
+    const { value } = e.target;
+    this.setState({ value });
+    this.props.handleFilters(value);
   };
 
   handleAngle = () => (
@@ -108,13 +87,17 @@ class CollapseCheckbox extends Component {
           unmountOnExit
         >
           <List component="div">
-            { this.renderList() }
+            <RadioGroup
+              aria-label="prices"
+              name="prices"
+              value={ this.state.value }
+              onChange={ this.handleChange }
+            >
+              { this.renderList() }
+            </RadioGroup>
           </List>
         </Collapse>
       </List>
     );
   };
 };
-
-
-export default CollapseCheckbox;
