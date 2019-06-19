@@ -4,6 +4,7 @@ import {
   PRODUCT_SERVER,
   GET_PRODUCTS_BY_SELL,
   GET_PRODUCTS_BY_ARRIVAL,
+  GET_PRODUCTS_TO_SHOP,
   GET_BRANDS,
   GET_WOODS
 } from '../constants';
@@ -37,6 +38,29 @@ export const getProductsByArrival = () => async (dispatch) => {
     throw err;
   }
 };
+
+
+export const getProductsToShop = (skip, limit, filters = [], prevState = []) => async (dispatch) => {
+  const data = {
+    limit,
+    skip,
+    filters
+  };
+
+  try {
+    const res = await axios.post(`${PRODUCT_SERVER}/shop`, data);
+
+    dispatch({
+      type: GET_PRODUCTS_TO_SHOP,
+      payload: {
+        size: res.data.size,
+        articles: res.data.articles
+      }
+    });
+  } catch (err) {
+    throw err;
+  }
+}
 
 
 export const getBrands = () => async (dispatch) => {

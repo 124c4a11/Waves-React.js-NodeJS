@@ -5,7 +5,8 @@ import { frets, price } from '../../utils/fixedCategories';
 
 import {
   getBrands,
-  getWoods
+  getWoods,
+  getProductsToShop
 } from '../../actions/productsActions'
 
 import PageTopBar from '../../components/PageTopBar';
@@ -29,7 +30,22 @@ class Shop extends Component {
   async componentDidMount() {
     await this.props.dispatch(getBrands());
     await this.props.dispatch(getWoods());
+    await this.props.dispatch(getProductsToShop(
+      this.state.skip,
+      this.state.limit,
+      this.state.filters
+    ));
   }
+
+  showFilteredResults = async (filters) => {
+    await this.props.dispatch(getProductsToShop(
+      0,
+      this.state.limit,
+      filters
+    ));
+
+    this.setState({ skip: 0 });
+  };
 
   handlePrice = (value) => {
     const data = price;
@@ -55,6 +71,8 @@ class Shop extends Component {
 
       newFilters[category] = priceValues;
     }
+
+    this.showFilteredResults(newFilters);
 
     this.setState({ filters: newFilters });
   };
