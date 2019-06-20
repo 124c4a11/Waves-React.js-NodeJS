@@ -11,11 +11,8 @@ export default ({ title, list }) => {
             <h2 className="page-section__title">{ title}</h2>
           : null
         }
-        {
-          list.length ?
-            <ProductList products={ list } />
-          : null
-        }
+
+        <ProductList products={ list } />
       </div>
     </div>
   );

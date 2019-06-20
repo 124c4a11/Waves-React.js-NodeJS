@@ -12,7 +12,7 @@ import {
 import PageTopBar from '../../components/PageTopBar';
 import CollapseCheckbox from '../../components/CollapseCheckbox';
 import CollapseRadio from '../../components/CollapseRadio';
-
+import LoadMoreCards from '../../components/LoadMoreCards';
 
 class Shop extends Component {
   state = {
@@ -113,7 +113,18 @@ class Shop extends Component {
               />
             </div>
             <div className="layout-content">
-
+              {
+                products.toShop && products.toShop.length ?
+                  <LoadMoreCards
+                    grid={ this.state.grid }
+                    limit={ this.state.limit }
+                    size={ products.toShopSize }
+                    products={ products.toShop }
+                    loadMore={ () => console.log('load more') }
+                  />
+                :
+                  <p className="no-result">Sorry, no results!</p>
+              }
             </div>
           </div>
         </div>
