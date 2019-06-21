@@ -23,6 +23,21 @@ $default-color: #e1ddc3;
 
 .btn_cta { min-width: 200px; }
 
+.btn_icon {
+  padding: 0 .6em;
+  font-size: rem(20px);
+  color: inherit;
+  background-color: transparent;
+  opacity: .6;
+
+  &:hover,
+  &:focus,
+  &-active {
+    background-color: transparent;
+    opacity: 1;
+  }
+}
+
 .btn_blue {
   color: #fff;
   background-color: $blue;

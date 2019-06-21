@@ -11,3 +11,19 @@
   flex: 0 1 rem(282px);
   padding: 20px 15px;
 }
+
+/*================================================================
+  product-list_list
+================================================================*/
+
+.product-list_list {
+  @media (min-width: em(992px)) {
+    flex-direction: column;
+  }
+
+  .product-list__item {
+    @media (min-width: em(992px)) {
+      flex: 0 0 auto;
+    }
+  }
+}

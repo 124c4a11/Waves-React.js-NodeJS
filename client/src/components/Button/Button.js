@@ -32,6 +32,14 @@ export default (props) => {
 
         break;
 
+      case 'icon':
+        template = <button
+          onClick={ () => props.runAction() }
+          className={ `${classname} btn_icon` }
+        >{ props.icon }</button>
+
+        break;
+
       case 'bag-link':
         template = <button
           onClick={ () => props.runAction() }

@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React, { Component, Fragment } from 'react';
 import { connect } from 'react-redux';
 
 import { frets, price } from '../../utils/fixedCategories';
@@ -9,6 +9,10 @@ import {
   getProductsToShop
 } from '../../actions/productsActions'
 
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import { faBars, faTh } from '@fortawesome/free-solid-svg-icons'
+
+import Button from '../../components/Button';
 import PageTopBar from '../../components/PageTopBar';
 import CollapseCheckbox from '../../components/CollapseCheckbox';
 import CollapseRadio from '../../components/CollapseRadio';
@@ -16,7 +20,7 @@ import LoadMoreCards from '../../components/LoadMoreCards';
 
 class Shop extends Component {
   state = {
-    grid: '',
+    grid: true,
     limit: 6,
     skip: 0,
     filters: {
@@ -90,6 +94,10 @@ class Shop extends Component {
     this.setState({ filters: newFilters });
   };
 
+  handleGrid = (isGrid) => {
+    this.setState({ grid: isGrid });
+  }
+
   render() {
     const { products } = this.props;
 
@@ -125,16 +133,33 @@ class Shop extends Component {
                 initState={ false }
               />
             </div>
-            <div className="layout-content">
+            <div className="layout-content py-1">
               {
                 products.toShop && products.toShop.length ?
-                  <LoadMoreCards
-                    grid={ this.state.grid }
-                    limit={ this.state.limit }
-                    size={ products.toShopSize }
-                    products={ products.toShop }
-                    loadMore={ () => this.loadMoreCards() }
-                  />
+                  <Fragment>
+                    <div className="grid-bar">
+                      <Button
+                        type="icon"
+                        icon={ <FontAwesomeIcon icon={ faTh } /> }
+                        runAction={ () => this.handleGrid(true) }
+                        className={ `${this.state.grid ? 'btn_icon-active' : ''}` }
+                      />
+                      <Button
+                        type="icon"
+                        icon={ <FontAwesomeIcon icon={ faBars } /> }
+                        runAction={ () => this.handleGrid(false) }
+                        className={ `${!this.state.grid ? 'btn_icon-active' : ''}` }
+                      />
+                    </div>
+
+                    <LoadMoreCards
+                      grid={ this.state.grid }
+                      limit={ this.state.limit }
+                      size={ products.toShopSize }
+                      products={ products.toShop }
+                      loadMore={ () => this.loadMoreCards() }
+                    />
+                  </Fragment>
                 :
                   <p className="no-result">Sorry, no results!</p>
               }
