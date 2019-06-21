@@ -50,11 +50,16 @@ export const getProductsToShop = (skip, limit, filters = [], prevState = []) => 
   try {
     const res = await axios.post(`${PRODUCT_SERVER}/shop`, data);
 
+    const newState = [
+      ...prevState,
+      ...res.data.articles
+    ];
+
     dispatch({
       type: GET_PRODUCTS_TO_SHOP,
       payload: {
         size: res.data.size,
-        articles: res.data.articles
+        articles: newState
       }
     });
   } catch (err) {

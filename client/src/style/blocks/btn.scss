@@ -1,4 +1,4 @@
-$bg-color: #e1ddc3;
+$default-color: #e1ddc3;
 
 .btn {
   display: inline-block;
@@ -10,13 +10,25 @@ $bg-color: #e1ddc3;
   text-align: center;
   text-decoration: none;
   text-transform: uppercase;
-  background-color: $bg-color;
+  background-color: $default-color;
   transition: .25s;
   cursor: pointer;
 
   &:hover,
   &:focus {
     outline: none;
-    background-color: darken($bg-color, 10%);
+    background-color: darken($default-color, 10%);
+  }
+}
+
+.btn_cta { min-width: 200px; }
+
+.btn_blue {
+  color: #fff;
+  background-color: $blue;
+
+  &:hover,
+  &:focus {
+    background-color: darken($blue, 15%);
   }
 }

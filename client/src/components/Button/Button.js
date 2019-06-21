@@ -18,7 +18,7 @@ export default (props) => {
         template = <Link
           className={ classname }
           to={ props.linkTo || '' }
-          { ...props.addStyles }
+          style={{ ...props.addStyles }}
         >{ props.title }</Link>
 
         break;
@@ -27,7 +27,7 @@ export default (props) => {
         template = <button
           type={ props.type }
           className={ classname }
-          { ...props.addStyles }
+          style={{ ...props.addStyles }}
         >{ props.title }</button>;
 
         break;
@@ -36,6 +36,7 @@ export default (props) => {
         template = <button
           onClick={ () => props.runAction() }
           className={ classname }
+          style={{ ...props.addStyles }}
         ><FontAwesomeIcon icon={ faShoppingBag } /></button>
 
         break;
@@ -43,7 +44,8 @@ export default (props) => {
       default:
         template = <button
           className={ classname }
-          { ...props.addStyles }
+          onClick={ () => props.runAction() }
+          style={{ ...props.addStyles }}
         >{ props.title }</button>;
     }
 

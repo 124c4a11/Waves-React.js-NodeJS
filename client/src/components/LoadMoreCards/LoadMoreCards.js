@@ -1,12 +1,24 @@
 import React, { Fragment } from 'react';
 
+import Button from '../Button';
 import ProductList from '../ProductList';
 
 
-export default ({ products }) => {
+export default ({ products, loadMore, size, limit }) => {
   return (
     <Fragment>
       <ProductList products={ products } />
+      {
+        size && size >= limit ?
+          <div className="load-more-bar">
+            <Button
+              title="load more"
+              runAction={ () => loadMore() }
+              className="btn_blue btn_cta"
+            />
+          </div>
+        : null
+      }
     </Fragment>
   );
 };
