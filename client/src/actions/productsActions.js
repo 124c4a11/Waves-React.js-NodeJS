@@ -6,7 +6,9 @@ import {
   GET_PRODUCTS_BY_ARRIVAL,
   GET_PRODUCTS_TO_SHOP,
   GET_BRANDS,
-  GET_WOODS
+  GET_WOODS,
+  ADD_PRODUCT,
+  CLEAR_PRODUCT
 } from '../constants';
 
 
@@ -94,3 +96,25 @@ export const getWoods = () => async (dispatch) => {
     throw err;
   }
 };
+
+
+export const addProduct = (dataToSubmit) => async (dispatch) => {
+  try {
+    const res = await axios.post(`${PRODUCT_SERVER}/article`, dataToSubmit);
+
+    dispatch({
+      type: ADD_PRODUCT,
+      payload: res.data
+    })
+  } catch (err) {
+    throw err;
+  }
+};
+
+
+export const clearProduct = () => {
+  return {
+    type: CLEAR_PRODUCT,
+    payload: ''
+  };
+}

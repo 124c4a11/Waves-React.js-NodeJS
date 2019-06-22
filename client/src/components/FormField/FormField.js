@@ -23,6 +23,14 @@ export default ({ id, formdata, change }) => {
       case 'input':
         template = (
           <Fragment>
+            {
+              formdata.showLabel ?
+                <label className="form-label">
+                  { formdata.config.label }
+                </label>
+              : null
+            }
+
             <input
               { ...formdata.config }
               value={ formdata.value }
@@ -34,6 +42,63 @@ export default ({ id, formdata, change }) => {
             { showError() }
           </Fragment>
         );
+        break;
+
+      case 'select':
+        template = (
+          <Fragment>
+            {
+              formdata.showLabel ?
+                <label className="form-label">
+                  { formdata.config.label }
+                </label>
+              : null
+            }
+
+            <select
+              value={ formdata.value }
+              onBlur={ (event) => change({ event, id, blur: true }) }
+              onChange={ (event) => change({ event, id }) }
+              className="form-field"
+            >
+              <option value="">Select one</option>
+              {
+                formdata.config.options.map((item) => (
+                  <option
+                    key={ item.key }
+                    value={ item.key }
+                  >{ item.value }</option>
+                ))
+              }
+            </select>
+
+            { showError() }
+          </Fragment>
+        );
+        break;
+
+      case 'textarea':
+        template = (
+          <Fragment>
+            {
+              formdata.showLabel ?
+                <label className="form-label">
+                  { formdata.config.label }
+                </label>
+              : null
+            }
+
+            <textarea
+              { ...formdata.config }
+              value={ formdata.value }
+              onBlur={ (event) => change({ event, id, blur: true }) }
+              onChange={ (event) => change({ event, id }) }
+              className="form-field"
+            />
+
+            { showError() }
+          </Fragment>
+        )
         break;
 
       default:

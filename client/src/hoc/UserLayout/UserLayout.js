@@ -1,5 +1,6 @@
-import React from 'react';
+import React, { Fragment } from 'react';
 import { Link } from 'react-router-dom';
+import { connect } from 'react-redux';
 
 
 const links = [
@@ -17,8 +18,23 @@ const links = [
   }
 ];
 
+const adminLinks = [
+  {
+    name: 'Site info',
+    linkTo: '/admin/site_info'
+  },
+  {
+    name: 'Add product',
+    linkTo: '/admin/add_product'
+  },
+  {
+    name: 'Manage categories',
+    linkTo: '/admin/manage_categories'
+  }
+];
 
-export default (props) => {
+
+const UserLayout = (props) => {
   const generateListItems = (links) => {
     return links.map((link, ndx) => {
       return (
@@ -39,6 +55,16 @@ export default (props) => {
         <ul className="layout-sidebar__list">
           { generateListItems(links) }
         </ul>
+        {
+          props.user.userData.isAdmin ?
+            <Fragment>
+              <h2 className="layout-sidebar__title">Admin</h2>
+              <ul className="layout-sidebar__list">
+                { generateListItems(adminLinks) }
+              </ul>
+            </Fragment>
+          : null
+        }
       </div>
       <div className="layout-content">
         { props.children }
@@ -46,3 +72,8 @@ export default (props) => {
     </div>
   );
 };
+
+
+export default connect(({ user }) => ({
+  user
+}))(UserLayout);

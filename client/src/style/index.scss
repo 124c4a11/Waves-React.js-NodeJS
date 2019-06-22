@@ -3,13 +3,16 @@
 @import './common/box-sizing-reset.scss';
 @import './common/typography.scss';
 @import './common/layout.scss';
-
 @import './blocks/body.scss';
 @import './blocks/logo.scss';
 @import './blocks/main-carousel.scss';
 @import './blocks/modal.scss';
-@import './blocks/form.scss';
+@import './blocks/form-layout.scss';
+@import './blocks/form-label.scss';
+@import './blocks/form-error-label.scss';
+@import './blocks/form-success-label.scss';
 @import './blocks/form-field.scss';
+@import './blocks/textarea.scss';
 @import './blocks/dialog-alert.scss';
 @import './blocks/info-section.scss';
 @import './blocks/preloader.scss';
@@ -26,3 +29,4 @@
 @import './blocks/no-result.scss';
 @import './blocks/load-more-bar.scss';
 @import './blocks/grid-bar.scss';
+@import './blocks/divider.scss';
