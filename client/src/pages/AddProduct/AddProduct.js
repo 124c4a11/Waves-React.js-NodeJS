@@ -16,8 +16,9 @@ import {
   resetFields
 } from '../../utils/formActions';
 
-import FormField from '../../components/FormField'
-import Button from '../../components/Button'
+import FormField from '../../components/FormField';
+import FileUpload from '../../components/FileUpload';
+import Button from '../../components/Button';
 
 import UserLayout from '../../hoc/UserLayout';
 
@@ -196,6 +197,17 @@ class AddProduct extends Component {
         validationMessage: '',
         showLabel: true
       },
+
+      images: {
+        value: [],
+        validation: {
+          required: false,
+        },
+        valid: true,
+        touched: false,
+        validationMessage: '',
+        showLabel: false
+      }
     }
   };
 
@@ -262,6 +274,17 @@ class AddProduct extends Component {
     }
   };
 
+  onImages = (images) => {
+    const newFormData = {
+      ...this.state.formdata,
+    };
+
+    newFormData['images'].value = images;
+    newFormData['images'].valid = true;
+
+    this.setState({ formdata: newFormData });
+  };
+
   render() {
     return (
       <UserLayout>
@@ -269,6 +292,13 @@ class AddProduct extends Component {
           <h1 className="mt-0">Add Product</h1>
 
           <form onSubmit={ (e) => this.onSubmit(e)}>
+            <div className="form-group">
+              <FileUpload
+                onImages={ (images) => this.onImages(images) }
+                reset={ this.state.formSuccess }
+              />
+            </div>
+
             <div className="form-group">
               <FormField
                 id={ 'name' }

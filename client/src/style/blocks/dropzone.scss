@@ -1,0 +1,28 @@
+.dropzone {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  border: 1px solid #d1d1d1;
+}
+
+.dropzone__item {
+  position: relative;
+  flex: 0 1 rem(184px);
+  height: rem(140px);
+  margin: 10px;
+  border: 1px solid #eaeaea;
+  background-size: contain;
+  background-position: center;
+  background-repeat: no-repeat;
+}
+
+.dropzone__item_darken { background-color: #eaeaea; }
+
+.dropzone__centered {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+
+.dropzone__icon { font-size: em(49px); }
