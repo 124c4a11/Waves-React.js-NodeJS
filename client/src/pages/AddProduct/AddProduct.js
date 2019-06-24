@@ -247,7 +247,7 @@ class AddProduct extends Component {
   };
 
   onUpdateForm = (element) => {
-    const newFormData = update(element, this.state.formdata, 'products');
+    const newFormData = update(element, this.state.formdata, 'brands');
 
     this.setState({
       formError: false,

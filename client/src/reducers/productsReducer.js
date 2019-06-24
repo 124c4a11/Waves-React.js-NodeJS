@@ -1,7 +1,9 @@
 import {
   GET_PRODUCTS_BY_SELL,
   GET_PRODUCTS_BY_ARRIVAL,
+  ADD_BRAND,
   GET_BRANDS,
+  ADD_WOOD,
   GET_WOODS,
   GET_PRODUCTS_TO_SHOP,
   ADD_PRODUCT,
@@ -30,10 +32,24 @@ export default (state = {}, action) => {
         toShopSize: action.payload.size
       };
 
+    case ADD_BRAND:
+      return {
+        ...state,
+        isBrandAdded: action.payload.success,
+        brands: action.payload.brands
+      };
+
     case GET_BRANDS:
       return {
         ...state,
         brands: action.payload
+      };
+
+    case ADD_WOOD:
+      return {
+        ...state,
+        isWoodAdded: action.payload.success,
+        woods: action.payload.woods
       };
 
     case GET_WOODS:

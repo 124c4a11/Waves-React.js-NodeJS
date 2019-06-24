@@ -5,7 +5,9 @@ import {
   GET_PRODUCTS_BY_SELL,
   GET_PRODUCTS_BY_ARRIVAL,
   GET_PRODUCTS_TO_SHOP,
+  ADD_BRAND,
   GET_BRANDS,
+  ADD_WOOD,
   GET_WOODS,
   ADD_PRODUCT,
   CLEAR_PRODUCT
@@ -70,6 +72,38 @@ export const getProductsToShop = (skip, limit, filters = [], prevState = []) => 
 }
 
 
+export const addBrand = (newBrand, existingBrands) => async (dispatch) => {
+  try {
+    const res = await axios.post(`${PRODUCT_SERVER}/brand`, newBrand);
+
+    if (!res.data.success) {
+      dispatch({
+        type: ADD_BRAND,
+        payload: {
+          success: res.data.success,
+          brands: [ ...existingBrands ]
+        }
+      });
+
+      return;
+    }
+
+    dispatch ({
+      type: ADD_BRAND,
+      payload: {
+        success: res.data.success,
+        brands: [
+          ...existingBrands,
+          res.data.brand
+        ]
+      }
+    });
+  } catch (err) {
+    throw err;
+  }
+};
+
+
 export const getBrands = () => async (dispatch) => {
   try {
     const res = await axios.get(`${PRODUCT_SERVER}/brands`);
@@ -82,6 +116,39 @@ export const getBrands = () => async (dispatch) => {
     throw err;
   }
 };
+
+
+export const addWood = (newWood, existingWoods) => async (dispatch) => {
+  try {
+    const res = await axios.post(`${PRODUCT_SERVER}/wood`, newWood);
+
+    if (!res.data.success) {
+      dispatch({
+        type: ADD_WOOD,
+        payload: {
+          success: res.data.success,
+          woods: [ ...existingWoods ]
+        }
+      });
+
+      return;
+    }
+
+    dispatch ({
+      type: ADD_WOOD,
+      payload: {
+        success: res.data.success,
+        woods: [
+          ...existingWoods,
+          res.data.wood
+        ]
+      }
+    });
+  } catch (err) {
+    throw err;
+  }
+};
+
 
 
 export const getWoods = () => async (dispatch) => {

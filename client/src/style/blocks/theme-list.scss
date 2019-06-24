@@ -1,0 +1,14 @@
+.theme-list {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.theme-list__item {
+  padding: em(5px) em(10px);
+  border: 1px solid #f1f1f1;
+  font-weight: 300;
+  font-size: rem(20px);
+  color: #fff;
+  background-color: $theme-color;
+}

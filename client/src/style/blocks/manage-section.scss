@@ -1,0 +1,24 @@
+.manage-section {
+  padding-bottom: rem(30px);
+  border-bottom: 1px solid #ddd;
+
+  & + & { margin-top: rem(20px); }
+}
+
+.manage-section__title {
+  margin-top: 0;
+  font-size: 1.5em;
+}
+
+.manage-section__row { display: flex; }
+
+.manage-section__list-wrap {
+  overflow-y: auto;
+  flex: 0 0 rem(200px);
+  height: rem(178px);
+  margin-right: 15px;
+}
+
+.manage-section__form-wrap {
+  flex: 1 1 auto;
+}

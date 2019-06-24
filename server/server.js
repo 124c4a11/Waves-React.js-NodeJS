@@ -109,7 +109,7 @@ app.post('/api/product/wood', auth, admin, async (req, res) => {
 
     res.status(200).json({ success: true, wood });
   } catch (err) {
-    res.status(500).json({ success: false, err });
+    res.json({ success: false, err });
   }
 });
 
@@ -145,7 +145,7 @@ app.post('/api/product/brand', auth, admin, async (req, res) => {
 
     res.status(200).json({ success: true, brand });
   } catch (err) {
-    res.status(500).json({ success: false, err });
+    res.json({ success: false, err });
   }
 });
 
