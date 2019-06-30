@@ -42,7 +42,7 @@ class Card extends Component {
               <Button
                 type="link"
                 title="View product"
-                linkTo={`/product_detail/${props._id}`}
+                linkTo={`/product/${props._id}`}
                 className="card__btn"
               />
             </div>

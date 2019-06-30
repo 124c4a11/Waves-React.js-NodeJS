@@ -54,8 +54,8 @@ app.post('/api/product/article', auth, admin, async (req, res) => {
 });
 
 
-// /api/product/articles_by_id?id=APSHDFPAJSDPF,ASDPFOAJSPDADF&type=array
-app.get('/api/product/articles_by_id', async (req, res) => {
+// /api/product?id=APSHDFPAJSDPF,ASDPFOAJSPDADF&type=array
+app.get('/api/product', async (req, res) => {
   let type = req.query.type;
   let items = req.query.id;
 

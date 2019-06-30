@@ -7,7 +7,9 @@ import {
   GET_WOODS,
   GET_PRODUCTS_TO_SHOP,
   ADD_PRODUCT,
-  CLEAR_PRODUCT
+  CLEAR_PRODUCT,
+  GET_PRODUCT_DETAIL,
+  CLEAR_PRODUCT_DETAIL
 } from '../constants';
 
 
@@ -68,7 +70,19 @@ export default (state = {}, action) => {
       return {
         ...state,
         addProduct: action.payload
-      }
+      };
+
+    case GET_PRODUCT_DETAIL:
+      return {
+        ...state,
+        productDetail: action.payload
+      };
+
+    case CLEAR_PRODUCT_DETAIL:
+      return {
+        ...state,
+        productDetail: action.payload
+      };
 
     default:
       return state;

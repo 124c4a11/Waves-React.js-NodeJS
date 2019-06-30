@@ -10,8 +10,34 @@ import {
   ADD_WOOD,
   GET_WOODS,
   ADD_PRODUCT,
-  CLEAR_PRODUCT
+  CLEAR_PRODUCT,
+  GET_PRODUCT_DETAIL,
+  CLEAR_PRODUCT_DETAIL
 } from '../constants';
+
+
+export const getProductDetail = (id) => async (dispatch) => {
+  try {
+    const res = await axios.get(`${PRODUCT_SERVER}?id=${id}&type=single`);
+
+    console.log(res);
+
+    dispatch({
+      type: GET_PRODUCT_DETAIL,
+      payload: res.data
+    });
+  } catch (err) {
+    throw err;
+  }
+};
+
+
+export const clearProductDetail = () => {
+  return {
+    type: CLEAR_PRODUCT_DETAIL,
+    payload: ''
+  };
+};
 
 
 export const getProductsBySell = () => async (dispatch) => {
