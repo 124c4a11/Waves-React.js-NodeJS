@@ -1,0 +1,22 @@
+.tag {
+  display: flex;
+  flex-wrap: wrap;
+  margin: 1em 0;
+}
+
+.tag__icon {
+  flex: 0 0 auto;
+  width: em(50px, 43px);
+  font-size: em(43px);
+  color: #e4e4e4;
+
+  svg { display: block; }
+}
+
+.tag__text {
+  flex: 1 1 auto;
+  margin-left: em(20px);
+  color: #999592;
+
+  p { margin: 0; }
+}

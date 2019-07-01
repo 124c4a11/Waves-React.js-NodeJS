@@ -7,6 +7,7 @@ import {
 } from '../../actions/productsActions';
 
 import PageTopBar from '../../components/PageTopBar';
+import ProductInfo from '../../components/ProductInfo';
 
 
 export class ProductDetail extends Component {
@@ -27,7 +28,10 @@ export class ProductDetail extends Component {
         <div className="container">
           {
             this.props.products.productDetail ?
-              <div>ProductDetail</div>
+              <ProductInfo
+                addToCart={ (id) => this.addToCart(id) }
+                detail={ this.props.products.productDetail }
+              />
             : 'Loading...'
           }
         </div>

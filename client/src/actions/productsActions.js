@@ -20,11 +20,9 @@ export const getProductDetail = (id) => async (dispatch) => {
   try {
     const res = await axios.get(`${PRODUCT_SERVER}?id=${id}&type=single`);
 
-    console.log(res);
-
     dispatch({
       type: GET_PRODUCT_DETAIL,
-      payload: res.data
+      payload: res.data[0]
     });
   } catch (err) {
     throw err;
