@@ -1,0 +1,28 @@
+.product-detail {
+  display: flex;
+  flex-wrap: wrap;
+  padding: 30px 0;
+
+  @media (max-width: rem(960px)) {
+    display: block;
+  }
+}
+
+.product-detail__gallery {
+  flex: 0 1 rem(500px);
+
+  .gallery {
+    @media (max-width: rem(960px)) {
+      margin: 0 auto;
+    }
+  }
+}
+
+.product-detail__info {
+  flex: 1 1 auto;
+  margin-left: 30px;
+
+  @media (max-width: rem(960px)) {
+    margin: 30px 0 0;
+  }
+}

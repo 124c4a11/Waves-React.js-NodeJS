@@ -1,0 +1,41 @@
+.gallery { max-width: rem(500px); }
+
+.gallery__display,
+.gallery__thumb {
+  border: 1px solid #ddd;
+  background-size: contain;
+  background-position: center;
+  background-repeat: no-repeat;
+  cursor: pointer;
+}
+
+.gallery__display,
+.gallery__thumb {
+  display: block;
+}
+
+.gallery__display {
+  height: rem(431px);
+}
+
+.gallery__thubs {
+  overflow: hidden;
+}
+
+.gallery__thumbs-list {
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+  margin: 5px -5px 0;
+  padding: 0;
+  list-style: none;
+}
+
+.gallery__list-item {
+  flex: 0 1 rem(160px);
+  margin: 5px;
+}
+
+.gallery__thumb {
+  height: rem(160px);
+}
