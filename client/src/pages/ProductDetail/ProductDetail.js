@@ -11,7 +11,7 @@ import ProductGallery from '../../components/ProductGallery';
 import ProductInfo from '../../components/ProductInfo';
 
 
-export class ProductDetail extends Component {
+class ProductDetail extends Component {
   async componentDidMount() {
     const id = this.props.match.params.id;
 

@@ -1,7 +1,9 @@
 import React, { Component } from 'react';
 
+import ImageLightBox from '../ImageLightBox';
 
-export class ProductGallery extends Component {
+
+class ProductGallery extends Component {
   state = {
     lightbox: false,
     imagePos: 0,
@@ -12,7 +14,9 @@ export class ProductGallery extends Component {
     const { images } = this.props.detail;
 
     if (images && images.length) {
-      this.setState({ lightboxImages: [ ...images ] });
+      const lightboxImages = images.map((item) => item.url);
+
+      this.setState({ lightboxImages });
     }
   }
 
@@ -30,14 +34,14 @@ export class ProductGallery extends Component {
     return this.state.lightboxImages.map((item, ndx) => (
       ndx > 0 ?
         <li
-          key={ item.public_id }
-               className="gallery__list-item"
+          key={ ndx }
+          className="gallery__list-item"
         >
           <a
             className="gallery__thumb"
             onClick={ (e) => this.onLightBox(e, ndx) }
-            style={{ backgroundImage: `url(${item.url})` }}
-            href={ item.url }
+            style={{ backgroundImage: `url(${item})` }}
+            href={ item }
           >
             <span className="visually-hidden">
               { `${brand.name} ${name}` }
@@ -50,12 +54,25 @@ export class ProductGallery extends Component {
 
   onLightBox = (e, ndx) => {
     e.preventDefault();
-    console.log('onLightBox');
+
+    if (this.state.lightboxImages.length) {
+      this.setState({
+        lightbox: true,
+        imagePos: ndx
+      });
+    }
+  };
+
+  onLightBoxClose = () => {
+    this.setState({ lightbox: false });
   };
 
   render() {
-    const { images, brand, name } = this.props.detail;
-    const { lightboxImages } = this.state;
+    const { images, brand, name, id } = this.props.detail;
+    const {
+      lightboxImages,
+      imagePos
+    } = this.state;
 
     return (
       <div className="gallery">
@@ -76,6 +93,16 @@ export class ProductGallery extends Component {
                 { this.renderThumbs() }
               </ul>
             </div>
+          : null
+        }
+        {
+          this.state.lightbox ?
+            <ImageLightBox
+              id={ id }
+              images={ lightboxImages }
+              pos={ imagePos }
+              onClose={ () => this.onLightBoxClose() }
+            />
           : null
         }
       </div>
