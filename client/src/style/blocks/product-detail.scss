@@ -15,9 +15,9 @@
     flex-shrink: 1;
   }
 
-  .gallery {
+  .gallery__thumbs {
     @media (max-width: em(960px)) {
-      margin: 0 auto;
+      display: none;
     }
   }
 }

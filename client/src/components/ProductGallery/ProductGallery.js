@@ -88,7 +88,7 @@ class ProductGallery extends Component {
         </a>
         {
           lightboxImages.length > 1 ?
-            <div className="gallery__thubms">
+            <div className="gallery__thumbs">
               <ul className="gallery__thumbs-list">
                 { this.renderThumbs() }
               </ul>
