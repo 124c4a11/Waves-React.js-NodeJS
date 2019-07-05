@@ -16,6 +16,10 @@ class ProductDetail extends Component {
     const id = this.props.match.params.id;
 
     await this.props.dispatch(getProductDetail(id));
+
+    if (!this.props.products.productDetail) {
+      this.props.history.push('/');
+    }
   }
 
   componentWillUnmount() {

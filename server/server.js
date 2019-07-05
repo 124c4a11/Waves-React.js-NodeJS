@@ -73,7 +73,7 @@ app.get('/api/product', async (req, res) => {
 
     res.status(200).send(products);
   } catch (err) {
-    res.status(500).send(err);
+    res.send(err);
   }
 });
 
