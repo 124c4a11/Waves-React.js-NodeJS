@@ -9,7 +9,7 @@ import {
 import Button from '../Button';
 
 
-export default ({ detail }) => {
+export default ({ detail, addToCart }) => {
   return (
     <Fragment>
       <h1 className="mt-0">{ detail.brand.name } { detail.name }</h1>
@@ -54,7 +54,7 @@ export default ({ detail }) => {
       <div className="h1 mb-1">{ `$ ${detail.price}` }</div>
       <Button
         title="Add to cart"
-        runAction={ () => console.log('Add to cart') }
+        runAction={ () => addToCart(detail._id) }
       />
     </Fragment>
   );

@@ -6,6 +6,8 @@ import {
   clearProductDetail
 } from '../../actions/productsActions';
 
+import { addToCart } from '../../actions/userActions';
+
 import PageTopBar from '../../components/PageTopBar';
 import ProductGallery from '../../components/ProductGallery';
 import ProductInfo from '../../components/ProductInfo';
@@ -20,11 +22,15 @@ class ProductDetail extends Component {
     if (!this.props.products.productDetail) {
       this.props.history.push('/');
     }
-  }
+  };
 
   componentWillUnmount() {
     this.props.dispatch(clearProductDetail());
-  }
+  };
+
+  addToCart = (id) => {
+    this.props.dispatch(addToCart(id));
+  };
 
   render() {
     const { productDetail } = this.props.products;

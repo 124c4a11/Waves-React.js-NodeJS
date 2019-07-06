@@ -19,3 +19,5 @@ export const GET_BRANDS = 'GET_BRANDS';
 
 export const ADD_WOOD = 'ADD_WOOD';
 export const GET_WOODS = 'GET_WOODS';
+
+export const ADD_TO_CART = 'ADD_TO_CART';

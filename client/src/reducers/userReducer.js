@@ -2,7 +2,8 @@ import {
   REGISTER_USER,
   LOGIN_USER,
   AUTH_USER,
-  LOGOUT_USER
+  LOGOUT_USER,
+  ADD_TO_CART
 } from '../constants';
 
 
@@ -30,6 +31,15 @@ export default (state = {}, action) => {
       return {
         ...state,
         success: action.payload.success
+      };
+
+    case ADD_TO_CART:
+      return {
+        ...state,
+        userData: {
+          ...state.userData,
+          cart: action.payload
+        }
       };
 
     default:

@@ -5,7 +5,8 @@ import {
   REGISTER_USER,
   LOGIN_USER,
   AUTH_USER,
-  LOGOUT_USER
+  LOGOUT_USER,
+  ADD_TO_CART
 } from '../constants';
 
 
@@ -61,6 +62,20 @@ export const logout = () => async (dispatch) => {
 
     dispatch({
       type: LOGOUT_USER,
+      payload: res.data
+    });
+  } catch (err) {
+    throw err;
+  }
+};
+
+
+export const addToCart = (_id) => async (dispatch) => {
+  try {
+    const res = await axios.post(`${USER_SERVER}/add_to_cart?productId=${_id}`);
+
+    dispatch({
+      type: ADD_TO_CART,
       payload: res.data
     });
   } catch (err) {
