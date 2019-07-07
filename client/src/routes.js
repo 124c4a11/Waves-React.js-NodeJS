@@ -13,6 +13,7 @@ import Shop from './pages/Shop';
 import AddProduct from './pages/AddProduct';
 import ManageCategories from './pages/ManageCategories';
 import ProductDetail from './pages/ProductDetail';
+import Cart from './pages/Cart';
 
 import { library } from '@fortawesome/fontawesome-svg-core';
 import {
@@ -46,6 +47,8 @@ export default () => {
         <Route path="/shop" exact component={ Auth(Shop, null) } />
 
         <Route path="/user/dashboard" exact component={ Auth(UserDashboard, true) } />
+
+        <Route path="/user/cart" exact component={ Auth(Cart, true) } />
 
         <Route path="/admin/add_product" exact component={ Auth(AddProduct, true) }/>
 

@@ -3,7 +3,8 @@ import {
   LOGIN_USER,
   AUTH_USER,
   LOGOUT_USER,
-  ADD_TO_CART
+  ADD_TO_CART,
+  GET_CART_ITEMS
 } from '../constants';
 
 
@@ -40,6 +41,12 @@ export default (state = {}, action) => {
           ...state.userData,
           cart: action.payload
         }
+      };
+
+    case GET_CART_ITEMS:
+      return {
+        ...state,
+        cartDetail: action.payload
       };
 
     default:

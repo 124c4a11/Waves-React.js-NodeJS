@@ -2,11 +2,13 @@ import axios from 'axios';
 
 import {
   USER_SERVER,
+  PRODUCT_SERVER,
   REGISTER_USER,
   LOGIN_USER,
   AUTH_USER,
   LOGOUT_USER,
-  ADD_TO_CART
+  ADD_TO_CART,
+  GET_CART_ITEMS
 } from '../constants';
 
 
@@ -76,6 +78,27 @@ export const addToCart = (_id) => async (dispatch) => {
 
     dispatch({
       type: ADD_TO_CART,
+      payload: res.data
+    });
+  } catch (err) {
+    throw err;
+  }
+};
+
+export const getCartItems = (cartItems, userCart) => async (dispatch) => {
+  try {
+    const res = await axios.get(`${PRODUCT_SERVER}?id=${cartItems}&type=array`);
+
+    userCart.forEach((item) => {
+      res.data.forEach((k, ndx) => {
+        if (item.id === k._id) {
+          res.data[ndx].quantity = item.quantity;
+        }
+      });
+    });
+
+    dispatch({
+      type: GET_CART_ITEMS,
       payload: res.data
     });
   } catch (err) {
