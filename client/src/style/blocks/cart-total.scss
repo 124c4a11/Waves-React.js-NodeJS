@@ -1,0 +1,11 @@
+.cart-total {
+  padding: em(10px);
+  border: 1px solid #e7e7e7;
+  font-size: em(20px);
+  text-transform: uppercase;
+  background-color: #f7f7f7;
+
+  @media (max-width: em(991px)) {
+    margin-top: 5px;
+  }
+}

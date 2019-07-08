@@ -1,0 +1,13 @@
+.cart-msg {
+  font-size: em(28px);
+  color: #999592;
+  text-align: center;
+
+  p { margin: 0; }
+}
+
+.cart-msg__icon {
+  margin-bottom: .05em;
+  font-size: em(100px, 28px);
+  color: #717171;
+}

@@ -29,10 +29,27 @@ class Cart extends Component {
     }
 
     await this.props.dispatch(getCartItems(cartItems, cart));
+
+    const { cartDetail } = this.props.user;
+
+    if (cartDetail.length) this.calculateTotal(cartDetail);
   };
 
   removeFromCart = (id) => {
     console.log(id);
+  };
+
+  calculateTotal = (cartDetail) => {
+    let total = 0;
+
+    cartDetail.forEach((item) => {
+      total += parseInt(item.price, 10) * item.quantity;
+    });
+
+    this.setState({
+      total,
+      showTotal: true
+    });
   };
 
   render() {
@@ -48,6 +65,30 @@ class Cart extends Component {
               type="cart"
               removeItem={ (id) => this.removeFromCart(id) }
             />
+          :
+            this.state.showSuccess ?
+              <div className="cart-msg">
+                <FontAwesomeIcon
+                  className="cart-msg__icon"
+                  icon={ faSmile }
+                />
+                <p>THANK YOU</p>
+                <p>YOUR ORDER IS NOW COMPLETE</p>
+              </div>
+            :
+              <div className="cart-msg">
+                <FontAwesomeIcon
+                  className="cart-msg__icon"
+                  icon={ faFrown }
+                />
+                <p>You have no items</p>
+              </div>
+        }
+        {
+          this.state.showTotal ?
+            <div className="cart-total">
+              Total amount: { `$ ${this.state.total}`}
+            </div>
           : null
         }
       </UserLayout>

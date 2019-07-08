@@ -59,6 +59,8 @@ app.get('/api/product', async (req, res) => {
   let type = req.query.type;
   let items = req.query.id;
 
+  if (!items) return;
+
   if (type === "array") {
     const ids = req.query.id.split(',');
     items = [];
