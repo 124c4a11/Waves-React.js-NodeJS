@@ -47,3 +47,15 @@ $default-color: #e1ddc3;
     background-color: darken($blue, 15%);
   }
 }
+
+.btn_danger {
+  color: #fff;
+  background-color: #f44336;
+
+  &:hover,
+  &:focus {
+    background-color: darken(#f44336, 15%);
+  }
+}
+
+.btn_sm { font-size: rem(14px) }
