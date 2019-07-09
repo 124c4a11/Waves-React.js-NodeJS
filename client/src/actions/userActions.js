@@ -8,7 +8,8 @@ import {
   AUTH_USER,
   LOGOUT_USER,
   ADD_TO_CART,
-  GET_CART_ITEMS
+  GET_CART_ITEMS,
+  UPDATE_CART
 } from '../constants';
 
 
@@ -74,7 +75,7 @@ export const logout = () => async (dispatch) => {
 
 export const addToCart = (_id) => async (dispatch) => {
   try {
-    const res = await axios.post(`${USER_SERVER}/add_to_cart?productId=${_id}`);
+    const res = await axios.post(`${USER_SERVER}/cart?productId=${_id}`);
 
     dispatch({
       type: ADD_TO_CART,
@@ -85,23 +86,59 @@ export const addToCart = (_id) => async (dispatch) => {
   }
 };
 
-export const getCartItems = (cartItems, userCart) => async (dispatch) => {
-  try {
-    const res = await axios.get(`${PRODUCT_SERVER}?id=${cartItems}&type=array`);
 
-    userCart.forEach((item) => {
-      res.data.forEach((k, ndx) => {
+export const getCartItems = (cartItems, userCart) => async (dispatch) => {
+  if (cartItems && cartItems.length) {
+    try {
+      const res = await axios.get(`${PRODUCT_SERVER}?id=${cartItems}&type=array`);
+
+      userCart.forEach((item) => {
+        res.data.forEach((k, ndx) => {
+          if (item.id === k._id) {
+            res.data[ndx].quantity = item.quantity;
+          }
+        });
+      });
+
+      dispatch({
+        type: GET_CART_ITEMS,
+        payload: res.data
+      });
+    } catch (err) {
+      throw err;
+    }
+  } else {
+    dispatch({
+      type: GET_CART_ITEMS,
+      payload: []
+    })
+  }
+};
+
+
+export const updateCart = (newCart) => async (dispatch) => {
+  try {
+    const res = await axios.patch(`${USER_SERVER}/cart`, { cart:  newCart });
+
+    const { cart, cartDetail } = res.data;
+
+    cart.forEach((item) => {
+      cartDetail.forEach((k, ndx) => {
         if (item.id === k._id) {
-          res.data[ndx].quantity = item.quantity;
+          cartDetail[ndx].quantity = item.quantity;
         }
       });
     });
 
     dispatch({
-      type: GET_CART_ITEMS,
-      payload: res.data
-    });
+      type: UPDATE_CART,
+      payload: {
+        cart,
+        cartDetail
+      }
+    })
   } catch (err) {
+    console.error(err);
     throw err;
   }
 };

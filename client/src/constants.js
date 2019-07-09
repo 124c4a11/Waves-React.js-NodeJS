@@ -22,3 +22,4 @@ export const GET_WOODS = 'GET_WOODS';
 
 export const ADD_TO_CART = 'ADD_TO_CART';
 export const GET_CART_ITEMS = 'GET_CART_ITEMS';
+export const UPDATE_CART = 'UPDATE_CART';

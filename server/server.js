@@ -300,7 +300,8 @@ app.get('/api/users/removeimage', auth, admin, (req, res) => {
 });
 
 
-app.post('/api/users/add_to_cart', auth, async (req, res) => {
+//CART
+app.post('/api/users/cart', auth, async (req, res) => {
   const userId = req.user._id
   const { productId } = req.query;
 
@@ -342,6 +343,35 @@ app.post('/api/users/add_to_cart', auth, async (req, res) => {
     }
   } catch (err) {
     console.error(err);
+    res.json({ success: false, err });
+  }
+});
+
+
+app.patch('/api/users/cart', auth, async (req, res) => {
+  try {
+    const doc = await User.findOneAndUpdate(
+      { _id: req.user._id },
+      {
+        "$set": { "cart": req.body.cart }
+      },
+      { new: true }
+    );
+
+    const { cart } = doc;
+    const cartIds = cart.map((item) => mongoose.Types.ObjectId(item.id));
+
+    const cartDetail = await Product
+      .find({ '_id': { $in: cartIds } })
+      .populate('brand')
+      .populate('wood');
+
+    res.status(200).json({
+      cart,
+      cartDetail
+    });
+  } catch (err) {
+    console.log(err);
     res.json({ success: false, err });
   }
 });

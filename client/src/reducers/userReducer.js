@@ -4,7 +4,8 @@ import {
   AUTH_USER,
   LOGOUT_USER,
   ADD_TO_CART,
-  GET_CART_ITEMS
+  GET_CART_ITEMS,
+  UPDATE_CART
 } from '../constants';
 
 
@@ -48,6 +49,18 @@ export default (state = {}, action) => {
         ...state,
         cartDetail: action.payload
       };
+
+    case UPDATE_CART:
+      const { cart, cartDetail } = action.payload;
+
+      return {
+        ...state,
+        userData: {
+          ...state.userData,
+          cart
+        },
+        cartDetail
+      }
 
     default:
       return state;

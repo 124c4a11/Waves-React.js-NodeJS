@@ -1,7 +1,10 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 
-import { getCartItems } from '../../actions/userActions';
+import {
+  getCartItems,
+  updateCart
+} from '../../actions/userActions';
 
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faFrown, faSmile } from '@fortawesome/free-solid-svg-icons';
@@ -35,8 +38,31 @@ class Cart extends Component {
     if (cartDetail.length) this.calculateTotal(cartDetail);
   };
 
-  removeFromCart = (id) => {
-    console.log(id);
+  removeFromCart = async (id) => {
+    const { cart } = this.props.user.userData;
+
+    const tmpCart = cart.map((item) => {
+      if (item.id === id && item.quantity) --item.quantity;
+
+      if (!item.quantity) return null;
+
+      return item;
+    });
+
+    const newCart = tmpCart.filter((item) => !!item);
+
+    await this.props.dispatch(updateCart(newCart));
+
+    const { cartDetail } = this.props.user;
+
+    if (cartDetail.length) {
+      this.calculateTotal(cartDetail)
+    } else {
+      this.setState({
+        total: 0,
+        showTotal: false
+      });
+    }
   };
 
   calculateTotal = (cartDetail) => {
