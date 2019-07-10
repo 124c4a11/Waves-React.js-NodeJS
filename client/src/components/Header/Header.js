@@ -42,9 +42,17 @@ class Header extends Component {
     ]
   };
 
-  generateMenuItems = (links) => {
-    const user = this.props.user.userData;
+  calculateProductsQuantity = () => {
+    const { cart } = this.props.user.userData;
 
+    let quantity = 0;
+
+    cart.forEach((item) => quantity += item.quantity);
+
+    return quantity;
+  };
+
+  generateMenuItems = (links) => {
     return links.map((link) => {
       switch (link.name) {
         case 'My Cart':
@@ -58,7 +66,7 @@ class Header extends Component {
                 to={ link.linkTo }
               >
                 <span className="header__nav-list-badge">
-                  { user.cart ? user.cart.length : 0 }
+                  { this.calculateProductsQuantity() }
                 </span>
                 { link.name }
               </Link>
