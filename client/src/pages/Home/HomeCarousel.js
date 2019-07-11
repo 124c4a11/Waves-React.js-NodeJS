@@ -1,5 +1,7 @@
 import React from 'react';
+
 import Carousel from 'react-slick';
+import 'slick-carousel/slick/slick.css';
 
 import Button from '../../components/Button';
 
