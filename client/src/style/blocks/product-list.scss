@@ -18,7 +18,7 @@
 
 .product-list_list {
   @media (min-width: em(992px)) {
-    flex-direction: column;
+    display: block;
   }
 
   .product-list__item {
