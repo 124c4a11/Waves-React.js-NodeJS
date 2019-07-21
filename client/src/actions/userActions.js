@@ -147,12 +147,12 @@ export const updateCart = (newCart) => async (dispatch) => {
 
 export const checkout = (data) => async (dispatch) => {
   try {
-    const res = axios.post(`${USER_SERVER}/checkout`, data);
+    const res = await axios.post(`${USER_SERVER}/checkout`, data);
 
-    // dispatch({
-    //   type: CHECKOUT,
-    //   payload: res.data
-    // });
+    dispatch({
+      type: CHECKOUT,
+      payload: res.data
+    });
   } catch (err) {
     throw err;
   }

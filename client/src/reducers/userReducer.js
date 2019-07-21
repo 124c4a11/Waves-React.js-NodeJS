@@ -5,7 +5,8 @@ import {
   LOGOUT_USER,
   ADD_TO_CART,
   GET_CART_ITEMS,
-  UPDATE_CART
+  UPDATE_CART,
+  CHECKOUT
 } from '../constants';
 
 
@@ -60,7 +61,18 @@ export default (state = {}, action) => {
           cart
         },
         cartDetail
-      }
+      };
+
+    case CHECKOUT:
+      return {
+        ...state,
+        successBuy: action.payload.success,
+        userData: {
+          ...state.userData,
+          cart: action.payload.cart,
+        },
+        cartDetail: action.payload.cartDetail
+      };
 
     default:
       return state;
