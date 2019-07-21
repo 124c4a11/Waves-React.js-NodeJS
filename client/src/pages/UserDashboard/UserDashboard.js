@@ -3,16 +3,24 @@ import React from 'react';
 import UserLayout from '../../hoc/UserLayout';
 
 import Button from '../../components/Button';
+import HistoryTable from '../../components/HistoryTable';
 
 
-export default () => {
+export default (props) => {
+  const {
+    name,
+    lastname,
+    email,
+    history
+  } = props.user
+
   return (
     <UserLayout>
       <section className="info-section">
         <h1 className="info-section__title">User information</h1>
-        <div>John</div>
-        <div>Doe</div>
-        <div>user@user.mail</div>
+        <div>{ name }</div>
+        <div>{ lastname }</div>
+        <div>{ email }</div>
         <Button
           type="link"
           linkTo="/user/profile"
@@ -21,10 +29,14 @@ export default () => {
         />
       </section>
 
-      <section className="info-section mt-2">
-        <h1 className="info-section__title">History purchases</h1>
-        <div>history</div>
-      </section>
+      {
+        history && history.length ?
+          <section className="info-section mt-2">
+            <h2 className="info-section__title">History purchases</h2>
+            <HistoryTable products={ history } />
+          </section>
+        : null
+      }
     </UserLayout>
   );
 };
