@@ -9,7 +9,8 @@ import {
   LOGOUT_USER,
   ADD_TO_CART,
   GET_CART_ITEMS,
-  UPDATE_CART
+  UPDATE_CART,
+  CHECKOUT
 } from '../constants';
 
 
@@ -139,6 +140,20 @@ export const updateCart = (newCart) => async (dispatch) => {
     })
   } catch (err) {
     console.error(err);
+    throw err;
+  }
+};
+
+
+export const checkout = (data) => async (dispatch) => {
+  try {
+    const res = axios.post(`${USER_SERVER}/checkout`, data);
+
+    // dispatch({
+    //   type: CHECKOUT,
+    //   payload: res.data
+    // });
+  } catch (err) {
     throw err;
   }
 };

@@ -1,9 +1,10 @@
-import React, { Component } from 'react';
+import React, { Component, Fragment } from 'react';
 import { connect } from 'react-redux';
 
 import {
   getCartItems,
-  updateCart
+  updateCart,
+  checkout
 } from '../../actions/userActions';
 
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
@@ -12,6 +13,7 @@ import { faFrown, faSmile } from '@fortawesome/free-solid-svg-icons';
 import UserLayout from '../../hoc/UserLayout';
 
 import CartList from '../../components/CartList';
+import Button from '../../components/Button';
 
 
 class Cart extends Component {
@@ -78,6 +80,19 @@ class Cart extends Component {
     });
   };
 
+  onCheckout = async () => {
+    await this.props.dispatch(checkout({
+      cartDetail: this.props.user.cartDetail
+    }));
+
+    if (this.props.user.successBuy) {
+      this.setState({
+        showTotal: false,
+        showSuccess: true
+      });
+    }
+  }
+
   render() {
     const products = this.props.user.cartDetail;
 
@@ -112,9 +127,17 @@ class Cart extends Component {
         }
         {
           this.state.showTotal ?
-            <div className="cart-total">
-              Total amount: { `$ ${this.state.total}`}
-            </div>
+            <Fragment>
+              <div className="cart-total">
+                Total amount: { `$ ${this.state.total}`}
+              </div>
+
+              <Button
+                title="Checkout"
+                runAction={ () => this.onCheckout() }
+                className="btn_blue btn_cta"
+              />
+            </Fragment>
           : null
         }
       </UserLayout>

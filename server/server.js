@@ -371,10 +371,61 @@ app.patch('/api/users/cart', auth, async (req, res) => {
       cartDetail
     });
   } catch (err) {
-    console.log(err);
+    console.error(err);
     res.json({ success: false, err });
   }
 });
 
+app.post('/api/users/checkout', auth, async (req, res) => {
+  const history = req.body.cartDetail.map((item) => {
+    return {
+      dateOfPurchase: Date.now(),
+      name: item.name,
+      brand: item.brand.name,
+      id: item._id,
+      price: item.price,
+      quantity: item.quantity
+    };
+  });
+
+  const products = req.body.cartDetail.map(({ _id, quantity }) => {
+    return {
+      id: _id,
+      quantity
+    };
+  });
+
+  try {
+    const user = await User.findOneAndUpdate(
+      { _id: req.user._id },
+      {
+        $push: { history },
+        $set: { cart: [] }
+      },
+      { new: true }
+    );
+
+    products.forEach(async (item) => {
+      await Product.update(
+        { _id: item.id },
+        {
+          $inc: {
+            "sold": item.quantity
+          }
+        },
+        { new: false }
+      );
+    });
+
+    res.status(200).json({
+      success: true,
+      cart: user.cart,
+      cartDetail: []
+    });
+  } catch (err) {
+    console.error(err);
+    res.json({ success: false, err});
+  }
+});
 
 app.listen(port, () => console.log(`Server Running at ${port}`));
