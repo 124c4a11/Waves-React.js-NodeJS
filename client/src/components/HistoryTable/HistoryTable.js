@@ -3,8 +3,8 @@ import moment from 'moment';
 
 export default ({ products }) => {
   const renderItems = () => {
-    return products.map((product) => {
-      return <tr key={ product.id }>
+    return products.map((product, ndx) => {
+      return <tr key={ ndx }>
         <td>{ moment(product.dateOfPurchase).format('MM-DD-YYYY') }</td>
         <td>{ product.brand } { product.name }</td>
         <td>{ `$ ${product.price}` }</td>
