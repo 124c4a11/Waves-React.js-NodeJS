@@ -324,19 +324,28 @@ app.post('/api/users/cart', auth, async (req, res) => {
 
   try {
     const doc = await User.findOne({ _id: userId });
-    let isDublicate = false;
 
-    doc.cart.forEach((item) => {
-      if (item.id == productId) isDublicate = true;
+    let newCart = [];
+
+    doc.cart.forEach((item, ndx) => {
+      if (item.id == productId) {
+        newCart = [
+          ...doc.cart.slice(0, ndx),
+          {
+            ...item,
+            quantity: item.quantity + 1
+          },
+          ...doc.cart.slice(ndx + 1)
+        ];
+      }
     });
 
-    if (isDublicate) {
-      const doc  = await User.findOneAndUpdate(
+    if (newCart.length) {
+      const doc = await User.findOneAndUpdate(
+        { _id: req.user._id },
         {
-          _id: userId,
-          "cart.id": mongoose.Types.ObjectId(productId)
+          "$set": { "cart": newCart }
         },
-        { $inc: { "cart.$.quantity": 1 } },
         { new: true }
       );
 
@@ -363,7 +372,6 @@ app.post('/api/users/cart', auth, async (req, res) => {
     res.json({ success: false, err });
   }
 });
-
 
 app.patch('/api/users/cart', auth, async (req, res) => {
   try {
