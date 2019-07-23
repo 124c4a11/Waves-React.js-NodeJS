@@ -5,12 +5,14 @@ table {
   text-align: left;
 }
 
-tr {
-  &:nth-child(even) { background-color: #ddd; }
-}
-
 td,
 th {
   padding: em(8px);
   border: 1px solid #ddd;
+}
+
+.table-striped {
+  tr {
+    &:nth-child(even) { background-color: #ddd; }
+  }
 }

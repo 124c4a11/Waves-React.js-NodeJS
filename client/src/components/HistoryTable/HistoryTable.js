@@ -15,7 +15,7 @@ export default ({ products }) => {
 
   return (
     <div className="overflow-wrapper">
-      <table>
+      <table className="table-striped">
         <thead>
           <tr>
             <th>Date of purchase</th>

@@ -10,43 +10,43 @@ export default ({ products, removeItem }) => {
 
   const renderItems = () => (
     products.map((product) => (
-      <li key={ product._id } className="list-table__item">
-        <div className="list-table__item-img-wrap">
+      <tr key={ product._id }>
+        <td className="product-table__item-img-wrap">
           <div
             style={{ backgroundImage: `url(${renderImage(product.images)})`}}
-            className="list-table__item-img"
+            className="product-table__item-img"
           ></div>
-        </div>
-        <div className="list-table__item-text-wrap">
+        </td>
+        <td className="text-center">
           <h3 className="list-table__item-title">Product Name</h3>
-          <p>
-            { product.brand.name } { product.name }
-          </p>
-        </div>
-        <div className="list-table__item-text-wrap">
+          { product.brand.name } { product.name }
+        </td>
+        <td className="text-center">
           <h3 className="list-table__item-title">Quantity</h3>
-          <p>{ product.quantity }</p>
-        </div>
-        <div className="list-table__item-text-wrap">
+          { product.quantity }
+        </td>
+        <td className="text-center">
           <h3 className="list-table__item-title">Price</h3>
-          <p>{ `$ ${product.price}` }</p>
-        </div>
-        <div className="list-table__item-actions">
-          <div>
-            <Button
-              title="Remove"
-              className="btn_danger btn_sm"
-              runAction={ () => removeItem(product._id) }
-            />
-          </div>
-        </div>
-      </li>
+          { `$ ${product.price}` }
+        </td>
+        <td className="text-right">
+          <Button
+            title="Remove"
+            className="btn_danger btn_sm"
+            runAction={ () => removeItem(product._id) }
+          />
+        </td>
+      </tr>
     ))
   );
 
   return (
-    <ul className="list-table">
-      { renderItems() }
-    </ul>
+    <div className="overflow-wrapper">
+      <table className="product-table">
+        <tbody>
+          { renderItems() }
+        </tbody>
+      </table>
+    </div>
   );
 };
