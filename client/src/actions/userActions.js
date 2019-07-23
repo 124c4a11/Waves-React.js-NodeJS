@@ -7,6 +7,8 @@ import {
   LOGIN_USER,
   AUTH_USER,
   LOGOUT_USER,
+  UPDATE_USER,
+  CLEAR_UPDATE_USER,
   ADD_TO_CART,
   GET_CART_ITEMS,
   UPDATE_CART,
@@ -71,6 +73,28 @@ export const logout = () => async (dispatch) => {
   } catch (err) {
     throw err;
   }
+};
+
+
+export const updateUser = (data) => async (dispatch) => {
+  try {
+    const res = await axios.post(`${USER_SERVER}/update_profile`, data);
+
+    dispatch({
+      type: UPDATE_USER,
+      payload: res.data
+    })
+  } catch (err) {
+    throw err;
+  }
+};
+
+
+export const clearUpdateUser = () => {
+  return {
+    type: CLEAR_UPDATE_USER,
+    payload: ''
+  };
 };
 
 

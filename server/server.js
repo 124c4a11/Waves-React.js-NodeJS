@@ -299,6 +299,23 @@ app.get('/api/users/removeimage', auth, admin, (req, res) => {
   });
 });
 
+app.post('/api/users/update_profile', auth, async (req, res) => {
+  try {
+    await User.findOneAndUpdate(
+      { _id: req.user._id },
+      {
+        "$set": req.body
+      },
+      { new: true }
+    );
+
+    res.status(200).send({ success: true });
+  } catch (err) {
+    console.error(err);
+    res.json({ success: false, err });
+  }
+});
+
 
 //CART
 app.post('/api/users/cart', auth, async (req, res) => {

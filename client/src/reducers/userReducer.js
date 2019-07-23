@@ -3,6 +3,8 @@ import {
   LOGIN_USER,
   AUTH_USER,
   LOGOUT_USER,
+  UPDATE_USER,
+  CLEAR_UPDATE_USER,
   ADD_TO_CART,
   GET_CART_ITEMS,
   UPDATE_CART,
@@ -34,6 +36,18 @@ export default (state = {}, action) => {
       return {
         ...state,
         success: action.payload.success
+      };
+
+    case UPDATE_USER:
+      return {
+        ...state,
+        updateUser: action.payload
+      };
+
+    case CLEAR_UPDATE_USER:
+      return {
+        ...state,
+        updateUser: action.payload
       };
 
     case ADD_TO_CART:
