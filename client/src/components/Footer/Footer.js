@@ -1,8 +1,8 @@
-import React from 'react';
+import React, { Fragment } from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 
 
-export default () => {
+export default ({ siteData }) => {
   return (
     <footer className="footer">
       <div className="container">
@@ -11,37 +11,60 @@ export default () => {
         </div>
         <div className="footer__bottom-line">
           <div className="footer__col">
-            <h2 className="footer__col-title">Contact information</h2>
-            <ul className="footer__info">
-              <li className="footer__info-item">
-                <FontAwesomeIcon icon="compass" className="footer__info-item-icon" />
-                <div className="footer__info-item-descr">
-                  <div>Address</div>
-                  <div>Kramer 456</div>
-                </div>
-              </li>
-              <li className="footer__info-item">
-                <FontAwesomeIcon icon="phone" className="footer__info-item-icon" />
-                <div className="footer__info-item-descr">
-                  <div>Phone</div>
-                  <div>12345-34567</div>
-                </div>
-              </li>
-              <li className="footer__info-item">
-                <FontAwesomeIcon icon="clock" className="footer__info-item-icon" />
-                <div className="footer__info-item-descr">
-                  <div>Working hours</div>
-                  <div>Mon-Sun/9am-8pm</div>
-                </div>
-              </li>
-              <li className="footer__info-item">
-                <FontAwesomeIcon icon="envelope" className="footer__info-item-icon" />
-                <div className="footer__info-item-descr">
-                  <div>Email</div>
-                  <div>info@waves.com</div>
-                </div>
-              </li>
-            </ul>
+            {
+              siteData ?
+                <Fragment>
+                  <h2 className="footer__col-title">Contact information</h2>
+
+                  <ul className="footer__info">
+                    {
+                      siteData.address ?
+                        <li className="footer__info-item">
+                          <FontAwesomeIcon icon="compass" className="footer__info-item-icon" />
+                          <div className="footer__info-item-descr">
+                            <div>Address</div>
+                            <address>{ siteData.address }</address>
+                          </div>
+                        </li>
+                      : null
+                    }
+                    {
+                      siteData.phone ?
+                        <li className="footer__info-item">
+                          <FontAwesomeIcon icon="phone" className="footer__info-item-icon" />
+                          <div className="footer__info-item-descr">
+                            <div>Phone</div>
+                            <div>{ siteData.phone }</div>
+                          </div>
+                        </li>
+                      : null
+                    }
+                    {
+                      siteData.hours ?
+                        <li className="footer__info-item">
+                          <FontAwesomeIcon icon="clock" className="footer__info-item-icon" />
+                          <div className="footer__info-item-descr">
+                            <div>Working hours</div>
+                            <div>{ siteData.hours }</div>
+                          </div>
+                        </li>
+                      :null
+                    }
+                    {
+                      siteData.email ?
+                        <li className="footer__info-item">
+                          <FontAwesomeIcon icon="envelope" className="footer__info-item-icon" />
+                          <div className="footer__info-item-descr">
+                            <div>Email</div>
+                            <div>{ siteData.email }</div>
+                          </div>
+                        </li>
+                      : null
+                    }
+                  </ul>
+                </Fragment>
+              : null
+            }
           </div>
           <div className="footer__col">
             <h2 className="footer__col-title">Be the first to know</h2>

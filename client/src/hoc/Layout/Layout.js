@@ -1,4 +1,7 @@
 import React, { Component, Fragment } from 'react';
+import { connect } from 'react-redux';
+
+import { getSiteData } from '../../actions/siteActions';
 
 import Header from '../../components/Header';
 import Footer from '../../components/Footer';
@@ -6,7 +9,15 @@ import Footer from '../../components/Footer';
 import './Layout.scss';
 
 
-export default class Layout extends Component {
+class Layout extends Component {
+  async componentDidMount() {
+    const { siteData } = this.props;
+
+    if (!siteData) {
+      await this.props.dispatch(getSiteData());
+    }
+  }
+
   render() {
     return (
       <Fragment>
@@ -15,9 +26,14 @@ export default class Layout extends Component {
           <div className="page-content">
             { this.props.children }
           </div>
-          <Footer />
+          <Footer siteData={ this.props.siteData } />
         </div>
       </Fragment>
     );
   }
 };
+
+
+export default connect(({ site }) => ({
+  siteData: site.siteData
+}))(Layout);
