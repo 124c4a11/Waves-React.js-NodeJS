@@ -15,6 +15,7 @@ import ManageCategories from './pages/ManageCategories';
 import ProductDetail from './pages/ProductDetail';
 import Cart from './pages/Cart';
 import UserInformation from './pages/UserInformation';
+import SiteInfo from './pages/SiteInfo';
 
 import { library } from '@fortawesome/fontawesome-svg-core';
 import {
@@ -54,6 +55,8 @@ export default () => {
         <Route path="/user/profile" exact component={ Auth(UserInformation, true) } />
 
         <Route path="/admin/add_product" exact component={ Auth(AddProduct, true) }/>
+
+        <Route path="/admin/site_info" exact component={ Auth(SiteInfo, true) }/>
 
         <Route path="/admin/manage_categories" exact component={ Auth(ManageCategories, true) }/>
 
