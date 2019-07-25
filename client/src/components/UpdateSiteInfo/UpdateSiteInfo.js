@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 
-import { updateUser, clearUpdateUser } from '../../actions/userActions';
+import { getSiteData } from '../../actions/siteActions';
 
 import {
   update,
@@ -94,6 +94,18 @@ export class UpdateSiteInfo extends Component {
     }
   };
 
+  async componentDidMount() {
+    await this.props.dispatch(getSiteData());
+
+    const { siteData } = this.props;
+
+    if (siteData) {
+      const newFormData = populateFields(this.state.formdata, siteData);
+
+      this.setState({ formdata: newFormData });
+    }
+  };
+
   onUpdateForm = (element) => {
     const newFormData = update(element, this.state.formdata, 'site-info');
 
@@ -182,5 +194,7 @@ export class UpdateSiteInfo extends Component {
 };
 
 
-export default connect()(UpdateSiteInfo);
+export default connect(({ site }) => ({
+  siteData: site.siteData
+}))(UpdateSiteInfo);
 

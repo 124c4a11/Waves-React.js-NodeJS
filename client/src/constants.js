@@ -27,4 +27,6 @@ export const ADD_TO_CART = 'ADD_TO_CART';
 export const GET_CART_ITEMS = 'GET_CART_ITEMS';
 export const UPDATE_CART = 'UPDATE_CART';
 
-export const CHECKOUT='CHECKOUT';
+export const CHECKOUT= 'CHECKOUT';
+
+export const GET_SITE_DATA = 'GET_SITE_DATA';

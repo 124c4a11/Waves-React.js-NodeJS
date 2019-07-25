@@ -9,6 +9,7 @@ const User = require('./models/user');
 const Brand = require('./models/brand');
 const Wood = require('./models/wood');
 const Product = require('./models/product');
+const Site = require('./models/site');
 
 const auth = require('./middleware/auth');
 const admin = require('./middleware/admin');
@@ -452,5 +453,19 @@ app.post('/api/users/checkout', auth, async (req, res) => {
     res.json({ success: false, err});
   }
 });
+
+
+//SITE
+app.get('/api/site/site_data', async (req, res) => {
+  try {
+    const site = await Site.find({});
+
+    res.status(200).send(site[0].siteInfo);
+  } catch (err) {
+    console.error(err);
+    res.status(400).send(err);
+  }
+});
+
 
 app.listen(port, () => console.log(`Server Running at ${port}`));
