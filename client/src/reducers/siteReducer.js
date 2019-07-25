@@ -1,4 +1,7 @@
-import { GET_SITE_DATA } from '../constants';
+import {
+  GET_SITE_DATA,
+  UPDATE_SITE_DATA
+} from '../constants';
 
 
 export default (state = {}, action) => {
@@ -7,7 +10,15 @@ export default (state = {}, action) => {
       return {
         ...state,
         siteData: action.payload
-      }
+      };
+
+    case UPDATE_SITE_DATA:
+      return {
+        ...state,
+        success: action.payload.success,
+        siteData: action.payload.siteInfo
+      };
+
     default:
       return state;
   }

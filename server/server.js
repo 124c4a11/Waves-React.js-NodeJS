@@ -300,6 +300,7 @@ app.get('/api/users/removeimage', auth, admin, (req, res) => {
   });
 });
 
+
 app.post('/api/users/update_profile', auth, async (req, res) => {
   try {
     await User.findOneAndUpdate(
@@ -374,6 +375,7 @@ app.post('/api/users/cart', auth, async (req, res) => {
   }
 });
 
+
 app.patch('/api/users/cart', auth, async (req, res) => {
   try {
     const doc = await User.findOneAndUpdate(
@@ -401,6 +403,7 @@ app.patch('/api/users/cart', auth, async (req, res) => {
     res.json({ success: false, err });
   }
 });
+
 
 app.post('/api/users/checkout', auth, async (req, res) => {
   const history = req.body.cartDetail.map((item) => {
@@ -464,6 +467,25 @@ app.get('/api/site/site_data', async (req, res) => {
   } catch (err) {
     console.error(err);
     res.status(400).send(err);
+  }
+});
+
+
+app.post('/api/site/site_data', auth, admin, async (req, res) => {
+  try {
+    const doc = await Site.findOneAndUpdate(
+      { name: 'Site' },
+      { "$set": { siteInfo: req.body } },
+      { new: true }
+    );
+
+    res.status(200).json({
+      success: true,
+      siteInfo: doc.siteInfo
+    });
+  } catch (err) {
+    console.error(err);
+    res.status(400).json({ success: false, err });
   }
 });
 

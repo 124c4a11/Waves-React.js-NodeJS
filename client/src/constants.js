@@ -30,3 +30,4 @@ export const UPDATE_CART = 'UPDATE_CART';
 export const CHECKOUT= 'CHECKOUT';
 
 export const GET_SITE_DATA = 'GET_SITE_DATA';
+export const UPDATE_SITE_DATA = 'UPDATE_SITE_DATA';

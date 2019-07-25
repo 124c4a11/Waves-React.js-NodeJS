@@ -1,7 +1,10 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 
-import { getSiteData } from '../../actions/siteActions';
+import {
+  getSiteData,
+  updateSiteData
+} from '../../actions/siteActions';
 
 import {
   update,
@@ -122,7 +125,20 @@ export class UpdateSiteInfo extends Component {
     let formIsValid = isFormValid(this.state.formdata, 'site-info');
 
     if (formIsValid) {
-      console.log(dataToSubmit);
+      await this.props.dispatch(updateSiteData(dataToSubmit));
+
+      const { success } = this.props;
+
+      if (success) {
+        this.setState(
+          { formSuccess: success },
+          () => {
+            setTimeout(() => {
+              this.setState({ formSuccess: false });
+            }, 2000);
+          }
+        );
+      }
     } else {
       this.setState({ formError: true });
     }
@@ -195,6 +211,7 @@ export class UpdateSiteInfo extends Component {
 
 
 export default connect(({ site }) => ({
+  success: site.success,
   siteData: site.siteData
 }))(UpdateSiteInfo);
 
