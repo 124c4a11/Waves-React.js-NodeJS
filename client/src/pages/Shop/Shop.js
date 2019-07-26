@@ -106,8 +106,8 @@ class Shop extends Component {
         <PageTopBar title="Browse Products" />
 
         <div className="flex-grow-1 d-flex">
-          <div className="container d-flex">
-            <div className="layout-sidebar py-0">
+          <div className="container layout">
+            <aside className="layout-sidebar py-0">
               <CollapseCheckbox
                 title="Brands"
                 list={ products.brands }
@@ -132,7 +132,7 @@ class Shop extends Component {
                 handleFilters={ (filters) => this.handleFilters(filters, 'price') }
                 initState={ false }
               />
-            </div>
+            </aside>
             <div className="layout-content py-1">
               {
                 products.toShop && products.toShop.length ?
