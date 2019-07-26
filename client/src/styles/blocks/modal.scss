@@ -6,12 +6,29 @@
   border-top: 5px solid #999592;
 }
 
-.modal_flex { display: flex; }
+.modal_flex {
+  display: flex;
+
+  @media (max-width: em(720px)) {
+    flex-direction: column;
+  }
+}
 
 .modal__col {
   flex: 1;
 
   & + & { margin-left: 30px; }
+
+  @media (max-width: em(720px)) {
+    & + & { margin-left: 0; }
+  }
+}
+
+.modal__col_order-sm-1 {
+  @media (max-width: em(720px)) {
+    order: 1;
+    margin-top: 30px;
+  }
 }
 
 .modal__title {
