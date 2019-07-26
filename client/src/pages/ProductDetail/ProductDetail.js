@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import { withRouter } from 'react-router-dom';
 import { connect } from 'react-redux';
 
 import {
@@ -29,7 +30,11 @@ class ProductDetail extends Component {
   };
 
   addToCart = (id) => {
-    this.props.dispatch(addToCart(id));
+    if (!this.props.user.userData.isAuth) {
+      this.props.history.push('/login');
+    } else {
+      this.props.dispatch(addToCart(id));
+    }
   };
 
   render() {
@@ -67,6 +72,7 @@ class ProductDetail extends Component {
 };
 
 
-export default connect(({ products }) => ({
-  products
-}))(ProductDetail);
+export default connect(({ products, user }) => ({
+  products,
+  user
+}))(withRouter(ProductDetail));
