@@ -6,8 +6,6 @@ import { getSiteData } from '../../actions/siteActions';
 import Header from '../../components/Header';
 import Footer from '../../components/Footer';
 
-import './Layout.scss';
-
 
 class Layout extends Component {
   async componentDidMount() {

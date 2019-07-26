@@ -1,26 +1,46 @@
 .header {
-  position: fixed;
+  position: absolute;
   top: 0;
   left: 0;
   z-index: 999;
   width: 100%;
   border-bottom: 1px solid white;
   background-color: $theme-color;
+
+  @media (min-width: rem(576px)) {
+    position: fixed;
+  }
+}
+
+.header__row {
+  @media (min-width: rem(576px)) {
+    display: flex;
+  }
 }
 
 .header__logo {
   flex: 0 0 250px;
   padding: 11px 0;
+  text-align: center;
+
+  @media (min-width: rem(576px)) {
+    text-align: left;
+  }
 }
 
 .header__nav {
   flex: 1 1 auto;
+  border-top: 1px solid #eee;
   border-left: 1px solid #eee;
   border-right: 1px solid #eee;
   font-weight: 700;
   font-size: 15px;
   text-align: right;
   text-transform: uppercase;
+
+  @media (min-width: rem(576px)) {
+    border-top: 0 none;
+  }
 }
 
 .header__nav-top,

@@ -114,7 +114,7 @@ class Header extends Component {
   render() {
     return (
       <header className="header">
-        <div className="container d-flex">
+        <div className="container header__row">
           <div className="header__logo">
             <Link to="/" className="logo">WAVES</Link>
           </div>
