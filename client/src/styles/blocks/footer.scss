@@ -10,23 +10,32 @@
 }
 
 .footer__bottom-line {
-  display: flex;
   color: #828282;
+  padding-bottom: 15px;
+
+  @media (min-width: em(768px)) {
+    display: flex;
+  }
 }
 
 .footer__col {
   flex: 1;
 
-  & + & { margin-left: 30px; }
+  @media (min-width: em(768px)) {
+    & + & { margin-left: 30px; }
+  }
 }
 
 .footer__col-title { font-size: 1.5em; }
 
 .footer__info {
-  display: flex;
-  flex-wrap: wrap;
   padding: 0;
   list-style: none;
+
+  @media (min-width: em(420px)) {
+    display: flex;
+    flex-wrap: wrap;
+  }
 }
 
 .footer__info-item {
