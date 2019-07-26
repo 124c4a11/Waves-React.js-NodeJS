@@ -1,9 +1,20 @@
 .form-group { margin: 15px 0; }
 
-.form-row { display: flex; }
+.form-row {
+  @media (min-width: em(520px)) {
+    display: flex;
+  }
+}
 
 .form-col {
-  flex: 1;
+  & + & { margin-top: 15px; }
 
-  & + & { margin-left: 15px; }
+  @media (min-width: em(520px)) {
+    flex: 1;
+
+    & + & {
+      margin-top: 0;
+      margin-left: 15px;
+    }
+  }
 }
