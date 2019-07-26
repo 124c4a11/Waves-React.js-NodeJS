@@ -49,8 +49,8 @@ const UserLayout = (props) => {
   };
 
   return (
-    <div className="container d-flex">
-      <div className="layout-sidebar">
+    <div className="container layout">
+      <aside className="layout-sidebar">
         <h2 className="layout-sidebar__title mt-0">My account</h2>
         <ul className="layout-sidebar__list">
           { generateListItems(links) }
@@ -65,7 +65,7 @@ const UserLayout = (props) => {
             </Fragment>
           : null
         }
-      </div>
+      </aside>
       <div className="layout-content">
         { props.children }
       </div>

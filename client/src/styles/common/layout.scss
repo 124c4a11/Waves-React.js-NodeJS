@@ -49,18 +49,33 @@
 /*================================================================
   layout
 ================================================================*/
+.layout {
+  @media (min-width: em(992px)) {
+    display: flex;
+  }
+
+  @media (max-width: em(1129px)) {
+    max-width: 100%;
+  }
+}
 
 .layout-sidebar {
-  flex: 0 0 251px;
   padding: 30px 0;
-  border-right: 1px solid #ddd;
+
+  @media (min-width: em(992px)) {
+    flex: 0 0 251px;
+    border-right: 1px solid #ddd;
+  }
 }
 
 .layout-sidebar__title {
   font-size: 1.5em;
-  padding-right: 30px;
   margin-top: 1.5em;
   margin-bottom: .5em;
+
+  @media (min-width: em(992px)) {
+    padding-right: 30px;
+  }
 }
 
 .layout-sidebar__list {
@@ -76,7 +91,7 @@
 
 .layout-sidebar__list-link {
   display: block;
-  padding: 10px 30px 10px 0;
+  padding: 10px 0 10px;
   color: #868686;
   transition: color .25s;
 
@@ -84,6 +99,10 @@
   &:focus {
     outline: none;
     color: #000;
+  }
+
+  @media (min-width: em(992px)) {
+    padding-right: 30px;
   }
 }
 
@@ -93,5 +112,9 @@ layout-content
 
 .layout-content {
   flex: 1 1 auto;
-  padding: 30px 0 30px 30px;
+  padding-bottom: 30px;
+
+  @media (min-width: em(992px)) {
+    padding: 30px 0 30px 30px;
+  }
 }
