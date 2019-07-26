@@ -2,7 +2,7 @@
   position: relative;
   margin-top: -171px;
 
-  @media (min-width: rem(576px)) {
+  @media (min-width: em(576px)) {
     margin-top: -85px;
   }
 
@@ -75,7 +75,7 @@
   background-size: cover;
   background-repeat: no-repeat;
 
-  @media (min-width: rem(576px)) {
+  @media (min-width: em(576px)) {
     padding-top: 166px;
   }
 }

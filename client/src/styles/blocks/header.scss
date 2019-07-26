@@ -7,13 +7,13 @@
   border-bottom: 1px solid white;
   background-color: $theme-color;
 
-  @media (min-width: rem(576px)) {
+  @media (min-width: em(576px)) {
     position: fixed;
   }
 }
 
 .header__row {
-  @media (min-width: rem(576px)) {
+  @media (min-width: em(576px)) {
     display: flex;
   }
 }
@@ -23,7 +23,7 @@
   padding: 11px 0;
   text-align: center;
 
-  @media (min-width: rem(576px)) {
+  @media (min-width: em(576px)) {
     text-align: left;
   }
 }
