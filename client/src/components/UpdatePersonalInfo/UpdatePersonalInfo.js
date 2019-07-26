@@ -23,6 +23,7 @@ export class UpdatePersonalInfo extends Component {
         element: 'input',
         value: '',
         config: {
+          label: 'Name',
           name: 'name',
           type: 'text',
           placeholder: 'Enter your name'
@@ -32,13 +33,15 @@ export class UpdatePersonalInfo extends Component {
         },
         valid: false,
         touched: false,
-        validationMessage: ''
+        validationMessage: '',
+        showLabel: true
       },
 
       lastname: {
         element: 'input',
         value: '',
         config: {
+          label: 'Lastname',
           name: 'lastname',
           type: 'text',
           placeholder: 'Enter your lastname'
@@ -48,13 +51,15 @@ export class UpdatePersonalInfo extends Component {
         },
         valid: false,
         touched: false,
-        validationMessage: ''
+        validationMessage: '',
+        showLabel: true
       },
 
       email: {
         element: 'input',
         value: '',
         config: {
+          label: 'Email',
           name: 'email',
           type: 'email',
           placeholder: 'Enter your email'
@@ -65,7 +70,8 @@ export class UpdatePersonalInfo extends Component {
         },
         valid: false,
         touched: false,
-        validationMessage: ''
+        validationMessage: '',
+        showLabel: true
       }
     }
   };
@@ -114,23 +120,20 @@ export class UpdatePersonalInfo extends Component {
   render() {
     return (
       <form onSubmit={ (e) => this.onSubmit(e) }>
-        <h2 className="mt-0">Personal Information</h2>
+        <div className="form-group">
+          <FormField
+            id={ 'name' }
+            formdata={ this.state.formdata.name }
+            change={ (element) => this.onUpdateForm(element) }
+          />
+        </div>
 
-        <div className="form-group form-row">
-          <div className="form-col">
-            <FormField
-              id={ 'name' }
-              formdata={ this.state.formdata.name }
-              change={ (element) => this.onUpdateForm(element) }
-            />
-          </div>
-          <div className="form-col">
-            <FormField
-              id={ 'lastname' }
-              formdata={ this.state.formdata.lastname }
-              change={ (element) => this.onUpdateForm(element) }
-            />
-          </div>
+        <div className="form-group">
+          <FormField
+            id={ 'lastname' }
+            formdata={ this.state.formdata.lastname }
+            change={ (element) => this.onUpdateForm(element) }
+          />
         </div>
 
         <div className="form-group">
