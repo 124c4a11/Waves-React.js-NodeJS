@@ -6,7 +6,7 @@ import store from './store';
 
 import Routes from './routes';
 
-import './style/index.scss';
+import './styles/index.scss';
 
 
 ReactDOM.render(
