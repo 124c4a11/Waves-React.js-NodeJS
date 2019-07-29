@@ -2,15 +2,14 @@ const express = require('express');
 const bodyParser = require('body-parser');
 const cookieParser = require('cookie-parser');
 const mongoose = require('mongoose');
-const formidable = require('express-formidable');
-const cloudinary = require('cloudinary');
 
-const User = require('./models/user');
+
 const Brand = require('./models/brand');
 const Wood = require('./models/wood');
 const Product = require('./models/product');
 
 
+const userRoutes = require('./routes/user.routes');
 const siteRoutes = require('./routes/site.routes');
 
 
@@ -18,10 +17,10 @@ const auth = require('./middleware/auth');
 const admin = require('./middleware/admin');
 
 
-require('dotenv').config();
-
-
 const app = express();
+
+
+require('dotenv').config();
 
 
 mongoose.Promise = global.Promise;
@@ -34,13 +33,6 @@ mongoose.connect(process.env.DATABASE, {
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
 app.use(cookieParser());
-
-
-cloudinary.config({
-  cloud_name: process.env.CLOUD_NAME,
-  api_key: process.env.CLOUD_API_KEY,
-  api_secret: process.env.CLOUD_API_SECRET
-});
 
 
 // PRODUCTS
@@ -198,267 +190,8 @@ app.post('/api/product/shop', async (req, res) => {
 });
 
 
-// USERS
-app.get('/api/users/auth', auth, async (req, res) => {
-  res.status(200).json({
-    isAdmin: req.user.role === 0 ? false : true,
-    isAuth: true,
-    email: req.user.email,
-    name: req.user.name,
-    lastname: req.user.lastname,
-    role: req.user.role,
-    cart: req.user.cart,
-    history: req.user.history
-  });
-});
 
-
-app.get('/api/users/logout', auth, async (req, res) => {
-  try {
-    await User.findOneAndUpdate(
-      { _id: req.user._id },
-      { token: '' }
-    );
-
-    res.status(200).send({ success: true });
-  } catch (err) {
-    res.json({ success: false, err });
-  }
-});
-
-
-app.post('/api/users/register', async (req, res) => {
-  const user = new User(req.body);
-
-  try {
-    await user.save();
-
-    res.status(201).json({ success: true });
-  } catch (err) {
-    res.status(500).json({ success: false, err });
-  }
-});
-
-
-app.post('/api/users/login', async (req, res) => {
-  try {
-    const user = await User.findOne({ 'email': req.body.email });
-
-    if (!user) {
-      return res.status(404).json({
-        loginSuccess: false,
-        message: 'Auth faile, email not found!'
-      });
-    }
-
-    const isMatch = await user.comparePassword(req.body.password);
-
-    if (!isMatch) {
-      return res.status(400).json({
-        loginSuccess: false,
-        message: 'Wrong password!'
-      });
-    }
-
-    const token = await user.generateToken();
-
-    user.token = token;
-
-    await user.save();
-
-    res.status(200).cookie('w_auth', user.token).json({
-      loginSuccess: true
-    });
-  } catch (err) {
-    res.status(400).json(err);
-  }
-});
-
-
-app.post('/api/users/uploadimage', auth, admin, formidable(), (req, res) => {
-  cloudinary.uploader.upload(
-    req.files.file.path,
-    (result) => {
-      res.status(200).send({
-        public_id: result.public_id,
-        url: result.url
-      });
-    },
-    {
-      public_id: `${Date.now()}`,
-      resource_type: 'auto',
-    }
-  );
-});
-
-
-app.get('/api/users/removeimage', auth, admin, (req, res) => {
-  const img_id = req.query.public_id;
-
-  cloudinary.uploader.destroy(img_id, (err, result) => {
-    if (err) return res.json({ success: false, err });
-
-    res.status(200).send('ok');
-  });
-});
-
-
-app.post('/api/users/update_profile', auth, async (req, res) => {
-  try {
-    await User.findOneAndUpdate(
-      { _id: req.user._id },
-      {
-        "$set": req.body
-      },
-      { new: true }
-    );
-
-    res.status(200).send({ success: true });
-  } catch (err) {
-    console.error(err);
-    res.json({ success: false, err });
-  }
-});
-
-
-//CART
-app.post('/api/users/cart', auth, async (req, res) => {
-  const userId = req.user._id
-  const { productId } = req.query;
-
-  try {
-    const doc = await User.findOne({ _id: userId });
-
-    let newCart = [];
-
-    doc.cart.forEach((item, ndx) => {
-      if (item.id == productId) {
-        newCart = [
-          ...doc.cart.slice(0, ndx),
-          {
-            ...item,
-            quantity: item.quantity + 1
-          },
-          ...doc.cart.slice(ndx + 1)
-        ];
-      }
-    });
-
-    if (newCart.length) {
-      const doc = await User.findOneAndUpdate(
-        { _id: req.user._id },
-        {
-          "$set": { "cart": newCart }
-        },
-        { new: true }
-      );
-
-      res.status(200).json(doc.cart);
-    } else {
-      const doc  = await User.findOneAndUpdate(
-        { _id: userId },
-        {
-          $push: {
-            cart: {
-              id: mongoose.Types.ObjectId(productId),
-              quantity: 1,
-              date: Date.now()
-            }
-          }
-        },
-        { new: true }
-      );
-
-      res.status(200).json(doc.cart);
-    }
-  } catch (err) {
-    console.error(err);
-    res.json({ success: false, err });
-  }
-});
-
-
-app.patch('/api/users/cart', auth, async (req, res) => {
-  try {
-    const doc = await User.findOneAndUpdate(
-      { _id: req.user._id },
-      {
-        "$set": { "cart": req.body.cart }
-      },
-      { new: true }
-    );
-
-    const { cart } = doc;
-    const cartIds = cart.map((item) => mongoose.Types.ObjectId(item.id));
-
-    const cartDetail = await Product
-      .find({ '_id': { $in: cartIds } })
-      .populate('brand')
-      .populate('wood');
-
-    res.status(200).json({
-      cart,
-      cartDetail
-    });
-  } catch (err) {
-    console.error(err);
-    res.json({ success: false, err });
-  }
-});
-
-
-app.post('/api/users/checkout', auth, async (req, res) => {
-  const history = req.body.cartDetail.map((item) => {
-    return {
-      dateOfPurchase: Date.now(),
-      name: item.name,
-      brand: item.brand.name,
-      id: item._id,
-      price: item.price,
-      quantity: item.quantity
-    };
-  });
-
-  const products = req.body.cartDetail.map(({ _id, quantity }) => {
-    return {
-      id: _id,
-      quantity
-    };
-  });
-
-  try {
-    const user = await User.findOneAndUpdate(
-      { _id: req.user._id },
-      {
-        $push: { history },
-        $set: { cart: [] }
-      },
-      { new: true }
-    );
-
-    products.forEach(async (item) => {
-      await Product.update(
-        { _id: item.id },
-        {
-          $inc: {
-            "sold": item.quantity
-          }
-        },
-        { new: false }
-      );
-    });
-
-    res.status(200).json({
-      success: true,
-      cart: user.cart,
-      cartDetail: []
-    });
-  } catch (err) {
-    console.error(err);
-    res.json({ success: false, err});
-  }
-});
-
+app.use('/api/users', userRoutes);
 
 app.use('/api/site', siteRoutes);
 

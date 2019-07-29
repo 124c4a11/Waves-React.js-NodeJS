@@ -200,7 +200,7 @@ class RegisterForm extends Component {
           :null }
 
           <Button
-            type="subbmit"
+            type="submit"
             title="Create an account"
           />
         </form>

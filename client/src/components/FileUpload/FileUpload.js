@@ -62,7 +62,7 @@ export class FileUpload extends Component {
 
   onRemove = async (id) => {
     try {
-      await axios.get(`/api/users/removeimage?public_id=${id}`);
+      await axios.delete(`/api/users/removeimage?public_id=${id}`);
 
       const files = this.state.uploadedFiles.filter((item) => item.public_id !== id);
 

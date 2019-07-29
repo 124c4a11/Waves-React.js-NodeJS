@@ -78,7 +78,7 @@ export const logout = () => async (dispatch) => {
 
 export const updateUser = (data) => async (dispatch) => {
   try {
-    const res = await axios.post(`${USER_SERVER}/update_profile`, data);
+    const res = await axios.patch(`${USER_SERVER}/update_profile`, data);
 
     dispatch({
       type: UPDATE_USER,
