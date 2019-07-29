@@ -9,7 +9,10 @@ const User = require('./models/user');
 const Brand = require('./models/brand');
 const Wood = require('./models/wood');
 const Product = require('./models/product');
-const Site = require('./models/site');
+
+
+const siteRoutes = require('./routes/site.routes');
+
 
 const auth = require('./middleware/auth');
 const admin = require('./middleware/admin');
@@ -19,7 +22,6 @@ require('dotenv').config();
 
 
 const app = express();
-const port = process.env.PORT || 3002;
 
 
 mongoose.Promise = global.Promise;
@@ -458,36 +460,7 @@ app.post('/api/users/checkout', auth, async (req, res) => {
 });
 
 
-//SITE
-app.get('/api/site/site_data', async (req, res) => {
-  try {
-    const site = await Site.find({});
-
-    res.status(200).send(site[0].siteInfo);
-  } catch (err) {
-    console.error(err);
-    res.status(400).send(err);
-  }
-});
+app.use('/api/site', siteRoutes);
 
 
-app.post('/api/site/site_data', auth, admin, async (req, res) => {
-  try {
-    const doc = await Site.findOneAndUpdate(
-      { name: 'Site' },
-      { "$set": { siteInfo: req.body } },
-      { new: true }
-    );
-
-    res.status(200).json({
-      success: true,
-      siteInfo: doc.siteInfo
-    });
-  } catch (err) {
-    console.error(err);
-    res.status(400).json({ success: false, err });
-  }
-});
-
-
-app.listen(port, () => console.log(`Server Running at ${port}`));
+module.exports = app;
