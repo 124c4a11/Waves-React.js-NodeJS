@@ -1,6 +1,8 @@
 const cloudinary = require('cloudinary');
 const mongoose = require('mongoose');
 
+const { sendEmail } = require('../utils/mail');
+
 const User = require('../models/user');
 const Product = require('../models/product');
 
@@ -18,7 +20,9 @@ module.exports.register = async (req, res) => {
   const user = new User(req.body);
 
   try {
-    await user.save();
+    const doc = await user.save();
+
+    sendEmail(doc.email, doc.name, null, 'welcome');
 
     res.status(201).json({ success: true });
   } catch (err) {
