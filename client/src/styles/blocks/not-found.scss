@@ -1,0 +1,17 @@
+.not-found {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 5rem 0;
+  font-size: em(28px);
+  color: #999592;
+  text-align: center;
+
+  p { margin: 0; }
+}
+
+.not-found__icon {
+  margin-bottom: .05em;
+  font-size: em(100px, 28px);
+  color: #717171;
+}
