@@ -16,6 +16,7 @@ import ProductDetail from './pages/ProductDetail';
 import Cart from './pages/Cart';
 import UserInformation from './pages/UserInformation';
 import SiteInfo from './pages/SiteInfo';
+import ResetPassword from './pages/ResetPassword';
 import NotFound from './pages/NotFound';
 
 import { library } from '@fortawesome/fontawesome-svg-core';
@@ -46,6 +47,8 @@ export default () => {
         <Route path="/register" exact component={ Auth(Register, false) } />
 
         <Route path="/logout" exact component={ Auth(Logout, true) } />
+
+        <Route path="/reset_password" exact component={ Auth(ResetPassword, false) } />
 
         <Route path="/shop" exact component={ Auth(Shop, null) } />
 
