@@ -19,6 +19,7 @@
     "react-paypal-express-checkout": "^1.0.5",
     "react-redux": "^7.0.3",
     "react-router-dom": "^5.0.0",
+    "react-router-scroll-top": "^0.2.1",
     "react-scripts": "3.0.1",
     "react-slick": "^0.24.0",
     "redux": "^4.0.1",
