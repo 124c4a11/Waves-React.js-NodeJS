@@ -1,5 +1,6 @@
 const cloudinary = require('cloudinary');
 const mongoose = require('mongoose');
+const moment = require('moment');
 
 const { sendEmail } = require('../utils/mail');
 
@@ -106,6 +107,36 @@ module.exports.resetPassword = async (req, res) => {
 
       res.json({ success: true });
     });
+  } catch (err) {
+    console.error(err);
+    res.json({ success: false, err });
+  }
+};
+
+
+module.exports.changePassword = async (req, res) => {
+  try {
+    const today = moment().startOf('day').valueOf();
+
+    const user = await User.findOne({
+      resetToken: req.body.resetToken,
+      resetTokenExp: { $gte: today }
+    });
+
+    if (!user) {
+      return res.json({
+        success: false,
+        message: 'Sorry, token bad, generate a new one.'
+      });
+    }
+
+    user.password = req.body.password;
+    user.resetToken = '';
+    user.resetTokenExp = '';
+
+    await user.save();
+
+    res.status(200).json({ success: true, })
   } catch (err) {
     console.error(err);
     res.json({ success: false, err });

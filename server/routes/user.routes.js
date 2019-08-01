@@ -37,9 +37,15 @@ router.post(
 );
 
 
-router.post(
+router.patch(
   '/reset_password',
   userControllers.resetPassword
+);
+
+
+router.patch(
+  '/change_password',
+  userControllers.changePassword
 );
 
 

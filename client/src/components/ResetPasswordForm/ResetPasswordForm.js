@@ -55,7 +55,7 @@ class ResetPasswordForm extends Component {
     let formIsValid = isFormValid(this.state.formdata, 'reset-password');
 
     if (formIsValid) {
-      const res = await axios.post(`${USER_SERVER}/reset_password`, dataToSubmit);
+      const res = await axios.patch(`${USER_SERVER}/reset_password`, dataToSubmit);
 
       const { success } = res.data;
 

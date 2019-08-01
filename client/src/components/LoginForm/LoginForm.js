@@ -112,6 +112,13 @@ class LoginForm extends Component {
         <Button
           type="submit"
           title="Log in"
+          className="mr-1 mb-1"
+        />
+
+        <Button
+          type="link"
+          linkTo="/reset_password"
+          title="Forgot my password"
         />
       </form>
     );

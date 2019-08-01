@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React, { Component, Fragment } from 'react';
 import axios from 'axios';
 import { withRouter } from 'react-router-dom';
 import { connect } from 'react-redux';
@@ -22,7 +22,7 @@ class ChangePasswordForm extends Component {
     resetToken: '',
     formError: false,
     formErrorMessage: '',
-    formSuccess: '',
+    formSuccess: false,
     formdata: {
       password: {
         element: 'input',
@@ -81,7 +81,28 @@ class ChangePasswordForm extends Component {
     let formIsValid = isFormValid(this.state.formdata, 'change-password');
 
     if (formIsValid) {
-      console.log(dataToSubmit);
+      const res = await axios.patch(`${USER_SERVER}/change_password`, {
+        ...dataToSubmit,
+        resetToken: this.state.resetToken
+      });
+
+      const { success, message } = res.data;
+
+      if (!success) {
+        this.setState({
+          formError: true,
+          formErrorMessage: message
+        });
+      } else {
+        this.setState({
+          formError: false,
+          formSuccess: true,
+        });
+
+        setTimeout(() => {
+          this.props.history.push('/login');
+        }, 3000);
+      }
     } else {
       this.setState({ formError: true });
     }
@@ -89,39 +110,48 @@ class ChangePasswordForm extends Component {
 
   render() {
     return (
-      <form onSubmit={ (e) => this.onSubmit(e) }>
-        <div className="form-group form-row">
-          <div className="form-col">
-            <FormField
-              id={ 'password' }
-              formdata={ this.state.formdata.password }
-              change={ (element) => this.onUpdateForm(element) }
-            />
-          </div>
-          <div className="form-col">
-            <FormField
-              id={ 'confirmPassword' }
-              formdata={ this.state.formdata.confirmPassword }
-              change={ (element) => this.onUpdateForm(element) }
-            />
-          </div>
-        </div>
-
-        {
-          this.state.formError ?
-            <div className="form-group">
-              <div className="form-error-label">
-                { this.state.formErrorMessage }
-              </div>
+      <Fragment>
+        <form onSubmit={ (e) => this.onSubmit(e) }>
+          <div className="form-group form-row">
+            <div className="form-col">
+              <FormField
+                id={ 'password' }
+                formdata={ this.state.formdata.password }
+                change={ (element) => this.onUpdateForm(element) }
+              />
             </div>
-          :null
-        }
+            <div className="form-col">
+              <FormField
+                id={ 'confirmPassword' }
+                formdata={ this.state.formdata.confirmPassword }
+                change={ (element) => this.onUpdateForm(element) }
+              />
+            </div>
+          </div>
 
-        <Button
-          type="submit"
-          title="Change password"
-        />
-      </form>
+          {
+            this.state.formError ?
+              <div className="form-group">
+                <div className="form-error-label">
+                  { this.state.formErrorMessage }
+                </div>
+              </div>
+            :null
+          }
+
+          <Button
+            type="submit"
+            title="Change password"
+          />
+        </form>
+
+        <Dialog open={ this.state.formSuccess }>
+          <div className="dialog-alert">
+            <div className="dialog-alert__title">Alright!!!</div>
+            <p>Your password was reseted... you will be redirected to login page!</p>
+          </div>
+        </Dialog>
+      </Fragment>
     );
   };
 }
