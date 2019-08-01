@@ -1,22 +1,34 @@
 const nodemailer = require('nodemailer');
 
 const { welcome } = require('./templates/welcome');
+const { resetPass } = require('./templates/resetPass');
 
 
 require('dotenv').config();
 
 
-const getEmailData = (to, name, token, template) => {
+const getEmailData = (to, name, token, template, actionData) => {
   let data = null;
 
   switch (template) {
     case 'welcome':
       data = {
-        from: 'Waves: <124c4alll@gmail.com>',
+        from: `Waves: <${process.env.EMAIL_USER}>`,
         to,
         subject: `Welcome to Waves, ${name}`,
         html: welcome()
       };
+      break;
+
+    case 'reset-password':
+      data = {
+        from: `Waves: <${process.env.EMAIL_USER}>`,
+        to,
+        subject: `Hey, ${name}, reset your password!`,
+        html: resetPass(actionData)
+      };
+      break;
+
     default:
       data;
   };
@@ -25,7 +37,7 @@ const getEmailData = (to, name, token, template) => {
 };
 
 
-const sendEmail = (to, name, token, type) => {
+const sendEmail = (to, name, token, type, actionData = null) => {
   const smtpTransport = nodemailer.createTransport({
     service: 'Gmail',
     auth: {
@@ -35,7 +47,7 @@ const sendEmail = (to, name, token, type) => {
     tls: { rejectUnauthorized: false }
   });
 
-  const mail = getEmailData(to, name, token, type);
+  const mail = getEmailData(to, name, token, type, actionData);
 
   smtpTransport.sendMail(mail, (err, res) => {
     if (err) console.error(err);

@@ -1,5 +1,7 @@
 const mongoose = require('mongoose');
+const moment = require('moment');
 const bcrypt = require('bcryptjs');
+const crypto = require('crypto');
 const jwt = require('jsonwebtoken');
 const SALT_I = 10;
 
@@ -49,6 +51,14 @@ const userSchema = new mongoose.Schema({
 
   token: {
     type: String
+  },
+
+  resetToken: {
+    type: String
+  },
+
+  resetTokenExp: {
+    type: Number
   }
 });
 
@@ -82,6 +92,26 @@ userSchema.methods.generateToken = function() {
   const user = this;
 
   return jwt.sign(user._id.toHexString(), process.env.SECRET);
+};
+
+
+userSchema.methods.generateResetToken = function(cb) {
+  let user = this;
+
+  crypto.randomBytes(20, async function(err, buffer) {
+    if (err) return cb(err);
+
+    const token = buffer.toString('hex');
+    const today = moment().startOf('day').valueOf();
+    const tomorrow = moment(today).endOf('day').valueOf();
+
+    user.resetToken = token;
+    user.resetTokenExp = tomorrow;
+
+    const updatedUser = await user.save({});
+
+    cb(null, updatedUser);
+  });
 };
 
 

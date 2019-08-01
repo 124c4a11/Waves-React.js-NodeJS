@@ -9,6 +9,7 @@ const Product = require('../models/product');
 
 require('dotenv').config();
 
+
 cloudinary.config({
   cloud_name: process.env.CLOUD_NAME,
   api_key: process.env.CLOUD_API_KEY,
@@ -89,6 +90,24 @@ module.exports.logout = async (req, res) => {
 
     res.status(200).send({ success: true });
   } catch (err) {
+    res.json({ success: false, err });
+  }
+};
+
+
+module.exports.resetPassword = async (req, res) => {
+  try {
+    const user = await User.findOne({ 'email': req.body.email });
+
+    user.generateResetToken((err, user) => {
+      if (err) return res.json({ success: false, err });
+
+      sendEmail(user.email, user.name, null, 'reset-password', user);
+
+      res.json({ success: true });
+    });
+  } catch (err) {
+    console.error(err);
     res.json({ success: false, err });
   }
 };

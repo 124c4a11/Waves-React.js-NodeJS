@@ -37,6 +37,12 @@ router.post(
 );
 
 
+router.post(
+  '/reset_password',
+  userControllers.resetPassword
+);
+
+
 router.patch(
   '/update_profile',
   auth,

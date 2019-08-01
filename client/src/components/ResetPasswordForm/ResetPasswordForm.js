@@ -3,6 +3,8 @@ import axios from 'axios';
 import { withRouter } from 'react-router-dom';
 import { connect } from 'react-redux';
 
+import { USER_SERVER } from '../../constants';
+
 import {
   update,
   generateData,
@@ -53,7 +55,13 @@ class ResetPasswordForm extends Component {
     let formIsValid = isFormValid(this.state.formdata, 'reset-password');
 
     if (formIsValid) {
-      console.log(dataToSubmit);
+      const res = await axios.post(`${USER_SERVER}/reset_password`, dataToSubmit);
+
+      const { success } = res.data;
+
+      if (success) {
+        this.setState({ formSuccess: true })
+      }
     } else {
       this.setState({ formError: true });
     }
