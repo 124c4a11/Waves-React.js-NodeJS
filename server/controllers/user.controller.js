@@ -323,6 +323,8 @@ module.exports.checkout = async (req, res) => {
       );
     });
 
+    sendEmail(user.email, user.name, null, 'purchase', history);
+
     res.status(200).json({
       success: true,
       cart: user.cart,

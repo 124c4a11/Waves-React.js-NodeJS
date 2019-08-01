@@ -2,6 +2,7 @@ const nodemailer = require('nodemailer');
 
 const { welcome } = require('./templates/welcome');
 const { resetPass } = require('./templates/resetPass');
+const { purchase } = require('./templates/purchase');
 
 
 require('dotenv').config();
@@ -26,6 +27,15 @@ const getEmailData = (to, name, token, template, actionData) => {
         to,
         subject: `Hey, ${name}, reset your password!`,
         html: resetPass(actionData)
+      };
+      break;
+
+    case 'purchase':
+      data = {
+        from: `Waves: <${process.env.EMAIL_USER}>`,
+        to,
+        subject: `Thanks for shopping with us, ${name}!`,
+        html: purchase(actionData)
       };
       break;
 

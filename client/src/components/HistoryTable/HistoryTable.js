@@ -7,7 +7,7 @@ export default ({ products }) => {
       return <tr key={ ndx }>
         <td>{ product.orderId }</td>
         <td>{ product.brand } { product.name }</td>
-        <td>{ `$ ${product.price}` }</td>
+        <td>{ `$ ${product.price * product.quantity}` }</td>
         <td>{ product.quantity }</td>
       </tr>
     });
