@@ -24,7 +24,7 @@ const resetPass = (data) => {
         <tr>
           <td style="margin: 0 auto;padding: 15px 25px;box-sizing: border-box">
             <p>Click on this link to reset your password:</p>
-            <a href="${URL}/reset_password/${data.resetToken}">Reset your password</a>
+            <a href="${URL}/change_password/${data.resetToken}">Reset your password</a>
           </td>
         </tr>
         <tr>

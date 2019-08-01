@@ -17,6 +17,7 @@ import Cart from './pages/Cart';
 import UserInformation from './pages/UserInformation';
 import SiteInfo from './pages/SiteInfo';
 import ResetPassword from './pages/ResetPassword';
+import ChangePassword from './pages/ChangePassword';
 import NotFound from './pages/NotFound';
 
 import { library } from '@fortawesome/fontawesome-svg-core';
@@ -50,13 +51,18 @@ export default () => {
 
         <Route path="/reset_password" exact component={ Auth(ResetPassword, false) } />
 
+        <Route path="/change_password/:token" exact component={ Auth(ChangePassword, false) } />
+
+
         <Route path="/shop" exact component={ Auth(Shop, null) } />
+
 
         <Route path="/user/dashboard" exact component={ Auth(UserDashboard, true) } />
 
         <Route path="/user/cart" exact component={ Auth(Cart, true) } />
 
         <Route path="/user/profile" exact component={ Auth(UserInformation, true) } />
+
 
         <Route path="/admin/add_product" exact component={ Auth(AddProduct, true) }/>
 

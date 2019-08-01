@@ -61,7 +61,7 @@ class ProductDetail extends Component {
                     addToCart={ (id) => this.addToCart(id) }
                     detail={ productDetail }
                   />
-                : 'Loading...'
+                : null
               }
             </div>
           </div>
