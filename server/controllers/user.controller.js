@@ -1,6 +1,7 @@
 const cloudinary = require('cloudinary');
 const mongoose = require('mongoose');
 const moment = require('moment');
+const crypto = require('crypto');
 
 const { sendEmail } = require('../utils/mail');
 
@@ -278,8 +279,12 @@ module.exports.updateCart = async (req, res) => {
 
 
 module.exports.checkout = async (req, res) => {
+  const date = new Date();
+  const orderId = `PO-${date.getSeconds()}${date.getMilliseconds()}-${crypto.createHash('sha1', req.user._id).digest('hex').substring(0, 8)}`;
+
   const history = req.body.cartDetail.map((item) => {
     return {
+      orderId,
       dateOfPurchase: Date.now(),
       name: item.name,
       brand: item.brand.name,
