@@ -1,4 +1,5 @@
 const express = require('express');
+const path = require('path');
 const bodyParser = require('body-parser');
 const cookieParser = require('cookie-parser');
 const mongoose = require('mongoose');
@@ -25,9 +26,19 @@ app.use(bodyParser.json());
 app.use(cookieParser());
 
 
+app.use(express.static('client/build'));
+
+
 app.use('/api/users', userRoutes);
 app.use('/api/product', productRoutes);
 app.use('/api/site', siteRoutes);
+
+
+if (process.env.NODE_ENV === 'production') {
+  app.get('/*', (req, res) => {
+    res.sendFile(path.resolve(__dirname, '../client', 'build', 'index.html'));
+  });
+}
 
 
 module.exports = app;
