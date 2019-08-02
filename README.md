@@ -1,0 +1,12 @@
+# Waves
+
+## Dotenv constants
+
+- ROOT_URL
+- DATABASE
+- SECRET
+- CLOUD_NAME
+- CLOUD_API_KEY
+- CLOUD_API_SECRET
+- EMAIL_USER
+- EMAIL_PASS
