@@ -70,6 +70,7 @@ $border-color: #f0f0f0;
   @media (min-width: em(992px)) {
     display: flex;
   }
+
   .card__img {
     @media (min-width: em(992px)) {
       flex: 0 0 rem(200px);
@@ -102,6 +103,7 @@ $border-color: #f0f0f0;
   .card__price {
     @media (min-width: em(992px)) {
       margin-left: 15px;
+      text-align: left;
     }
   }
 
